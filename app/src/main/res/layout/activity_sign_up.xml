@@ -328,6 +328,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/poppins_medium"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="@string/signup_signin"
             android:textColor="?attr/colorSecondary"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_already_member"
