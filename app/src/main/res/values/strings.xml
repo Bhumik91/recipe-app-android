@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Recipe App</string>
+
+    <!-- OnBoarding Activity -->
+    <string name="onboarding_bg_desc">background</string>
+    <string name="onboarding_ic_desc">icon</string>
+    <string name="onboarding_subtitle_txt">100K+ Premium Recipe</string>
+    <string name="onboarding_title_txt">Get\nCooking</string>
+    <string name="onboarding_body_txt">Simple way to find Tasty Recipe</string>
+    <string name="onboarding_start_btn">Start Cooking</string>
+    <string name="onboarding_bg_desp">Background</string>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name = "TextStyleSubtitleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name = "TextStyleSubtitleLarge">
+        <item name="android:textSize">50sp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name = "TextStyleBodyRegular">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>
