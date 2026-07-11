@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.onboarding.OnBoardingActivity">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/onboarding_bg_desp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_onboarding"
+        tools:viewBindingIgnore="true" />
+
+    <ImageView
+        android:id="@+id/iv_main_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:contentDescription="@string/onboarding_ic_desc"
+        android:src="@drawable/ic_chef_hat"
+        app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:tint="@color/white"
+        tools:viewBindingIgnore="true" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        style="@style/TextStyleSubtitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/onboarding_subtitle_txt"
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_main_icon"
+        tools:viewBindingIgnore="true" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextStyleSubtitleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:maxLines="2"
+        android:text="@string/onboarding_title_txt"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/tv_body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        tools:viewBindingIgnore="true" />
+
+    <TextView
+        android:id="@+id/tv_body"
+        style="@style/TextStyleBodyRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:maxLines="2"
+        android:text="@string/onboarding_body_txt"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/btn_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:viewBindingIgnore="true" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingHorizontal="50dp"
+        android:paddingVertical="15dp"
+        android:text="@string/onboarding_start_btn"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/ic_arrow_forward"
+        app:iconGravity="textEnd"
+        app:iconPadding="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_body" />
+</androidx.constraintlayout.widget.ConstraintLayout>
