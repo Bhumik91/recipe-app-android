@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.recipeapp.App
+import com.example.recipeapp.core.base.AuthField
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.databinding.ActivityLoginBinding
 import com.example.recipeapp.features.auth.viewmodel.LoginViewModel
@@ -66,26 +67,11 @@ class LoginActivity: AppCompatActivity() {
         val username = binding.etUserName.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
 
-        var isValid = true
+        binding.tilUserName.error = null
+        binding.tilPassword.error = null
 
-        if (username.isEmpty()) {
-            binding.tilUserName.error = "Username cannot be empty"
-            isValid = false
-        } else {
-            binding.tilUserName.error = null
-        }
-
-        if (password.isEmpty()) {
-            binding.tilPassword.error = "Password cannot be empty"
-            isValid = false
-        } else {
-            binding.tilPassword.error = null
-        }
-
-        if (isValid) {
-            hideKeyboard()
-            viewModel.login(username, password)
-        }
+        hideKeyboard()
+        viewModel.login(username, password)
     }
 
     private fun observeUiState() {
@@ -106,7 +92,32 @@ class LoginActivity: AppCompatActivity() {
                     }
                     is UiState.Error -> {
                         updateButtonLoadingState(isLoading = false)
-                        Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
+                        binding.tilUserName.error = null
+                        binding.tilPassword.error = null
+
+                        if (state.fieldErrors.isNotEmpty()) {
+                            var firstErrorField: AuthField? = null
+                            state.fieldErrors.forEach { (field, errorMsg) ->
+                                if (firstErrorField == null) firstErrorField = field
+                                when (field) {
+                                    AuthField.UserName -> {
+                                        binding.tilUserName.error = errorMsg
+                                    }
+                                    AuthField.Password -> {
+                                        binding.tilPassword.error = errorMsg
+                                    }
+                                    else -> {}
+                                }
+                            }
+                            // Shift focus to the first error field
+                            when (firstErrorField) {
+                                AuthField.UserName -> binding.etUserName.requestFocus()
+                                AuthField.Password -> binding.etPassword.requestFocus()
+                                else -> {}
+                            }
+                        } else {
+                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -114,7 +125,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
         val view = currentFocus ?: binding.root
         imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }

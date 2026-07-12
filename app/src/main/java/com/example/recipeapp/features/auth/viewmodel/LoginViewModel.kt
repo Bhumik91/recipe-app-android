@@ -3,6 +3,7 @@ package com.example.recipeapp.features.auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.core.base.AuthField
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.core.network.NetworkResult
 import com.example.recipeapp.features.auth.data.AuthRepository
@@ -17,7 +18,19 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
     val uiState: StateFlow<UiState<LoginResponse>> = _uiState
 
     fun login(userName: String, password: String) {
-        val request = LoginRequest(userName,password)
+        val fieldErrors = mutableMapOf<AuthField, String>()
+        if (userName.isEmpty()) {
+            fieldErrors[AuthField.UserName] = "Username cannot be empty"
+        }
+        if (password.isEmpty()) {
+            fieldErrors[AuthField.Password] = "Password cannot be empty"
+        }
+        if (fieldErrors.isNotEmpty()) {
+            _uiState.value = UiState.Error("Validation failed", fieldErrors)
+            return
+        }
+
+        val request = LoginRequest(userName, password)
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             when (val result = repository.login(request)) {
