@@ -15,7 +15,10 @@ import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.databinding.ActivityLoginBinding
 import com.example.recipeapp.features.auth.viewmodel.LoginViewModel
 import com.example.recipeapp.features.auth.viewmodel.LoginViewModelFactory
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.example.recipeapp.MainActivity
+import com.example.recipeapp.R
 import kotlinx.coroutines.launch
 
 class LoginActivity: AppCompatActivity() {
@@ -80,6 +83,7 @@ class LoginActivity: AppCompatActivity() {
         }
 
         if (isValid) {
+            hideKeyboard()
             viewModel.login(username, password)
         }
     }
@@ -89,22 +93,43 @@ class LoginActivity: AppCompatActivity() {
             viewModel.uiState.collect { state ->
                 when (state) {
                     is UiState.Idle -> {
-                        binding.btnSignIn.isEnabled = true
+                        updateButtonLoadingState(isLoading = false)
                     }
                     is UiState.Loading -> {
-                        binding.btnSignIn.isEnabled = false
+                        hideKeyboard()
+                        updateButtonLoadingState(isLoading = true)
                     }
                     is UiState.Success -> {
-                        binding.btnSignIn.isEnabled = true
+                        updateButtonLoadingState(isLoading = false)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }
                     is UiState.Error -> {
-                        binding.btnSignIn.isEnabled = true
+                        updateButtonLoadingState(isLoading = false)
                         Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+        val view = currentFocus ?: binding.root
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun updateButtonLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            binding.btnSignIn.isEnabled = false
+            binding.btnSignIn.text = ""
+            binding.btnSignIn.icon = null
+            binding.pcLoading.visibility = View.VISIBLE
+        } else {
+            binding.btnSignIn.isEnabled = true
+            binding.btnSignIn.text = getString(R.string.login_btn)
+            binding.btnSignIn.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_forward)
+            binding.pcLoading.visibility = View.GONE
         }
     }
 }
