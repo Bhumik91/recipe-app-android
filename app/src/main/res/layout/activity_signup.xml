@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".features.auth.SignUpActivity">
+    tools:context=".features.auth.view.SignupActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -222,9 +222,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_confirm_password" />
 
-        <!-- Sign Up Button -->
+        <!-- Signup Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/btn_signup"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="28dp"
@@ -256,11 +256,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="14dp"
-            android:text="@string/signin_or_text"
+            android:text="@string/login_or_text"
             android:textColor="@color/gray_4"
             app:layout_constraintEnd_toStartOf="@id/view_right_divider"
             app:layout_constraintStart_toEndOf="@id/view_left_divider"
-            app:layout_constraintTop_toBottomOf="@id/btn_sign_up"
+            app:layout_constraintTop_toBottomOf="@id/btn_signup"
             tools:viewBindingIgnore="true" />
 
         <View
@@ -281,7 +281,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/ripple_social_button"
-            android:contentDescription="@string/signin_google_desc"
+            android:contentDescription="@string/login_google_desc"
             android:elevation="4dp"
             android:padding="10dp"
             android:scaleType="centerInside"
@@ -297,7 +297,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="25dp"
             android:background="@drawable/ripple_social_button"
-            android:contentDescription="@string/signin_facebook_desc"
+            android:contentDescription="@string/login_facebook_desc"
             android:elevation="4dp"
             android:padding="10dp"
             android:scaleType="centerInside"
@@ -316,20 +316,20 @@
             android:fontFamily="@font/poppins_medium"
             android:text="@string/signup_already_member"
             android:textColor="?attr/colorOnSurface"
-            app:layout_constraintEnd_toStartOf="@id/tv_sign_in"
+            app:layout_constraintEnd_toStartOf="@id/tv_login"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_google"
             tools:viewBindingIgnore="true" />
 
         <TextView
-            android:id="@+id/tv_sign_in"
+            android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/poppins_medium"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:text="@string/signup_signin"
+            android:text="@string/signup_login"
             android:textColor="?attr/colorSecondary"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_already_member"
             app:layout_constraintEnd_toEndOf="parent"

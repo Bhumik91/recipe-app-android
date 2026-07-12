@@ -24,7 +24,7 @@
     <string name="login_google_desc">Sign with Google</string>
     <string name="login_facebook_desc">Sign with Facebook</string>
 
-    <!-- Sign Up Activity -->
+    <!-- Signup Activity -->
     <string name="signup_create_account">Create Account</string>
     <string name="signup_subtitle">Let’s help you set up your account,\nit won’t take long.</string>
     <string name="signup_name_label">Name</string>
