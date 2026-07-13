@@ -1,12 +1,11 @@
 package com.example.recipeapp.features.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityOnBoardingBinding
+import com.example.recipeapp.features.auth.view.LoginActivity
 
 class OnBoardingActivity : AppCompatActivity() {
 
@@ -17,10 +16,13 @@ class OnBoardingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        configureOnClicks()
+    }
+
+    private fun configureOnClicks() {
+        binding.btnStart.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 }

@@ -8,5 +8,35 @@
     <string name="onboarding_title_txt">Get\nCooking</string>
     <string name="onboarding_body_txt">Simple way to find Tasty Recipe</string>
     <string name="onboarding_start_btn">Start Cooking</string>
-    <string name="onboarding_bg_desp">Background</string>
+
+    <!-- Login Activity -->
+    <string name="login_hello">Hello,</string>
+    <string name="login_welcome">Welcome Back</string>
+    <string name="login_user_name_label">User Name</string>
+    <string name="login_user_name_hint">Enter User Name</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_password_hint">Enter Password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_btn">Log In</string>
+    <string name="login_or_text">Or Sign In With</string>
+    <string name="login_dont_have_account">Don\'t have an account? </string>
+    <string name="login_signup">Sign Up</string>
+    <string name="login_google_desc">Sign with Google</string>
+    <string name="login_facebook_desc">Sign with Facebook</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_create_account">Create Account</string>
+    <string name="signup_subtitle">Let’s help you set up your account,\nit won’t take long.</string>
+    <string name="signup_name_label">Name</string>
+    <string name="signup_name_hint">Enter Name</string>
+    <string name="signup_email_label">Email</string>
+    <string name="signup_email_hint">Enter Email</string>
+    <string name="signup_password_label">Password</string>
+    <string name="signup_password_hint">Enter Password</string>
+    <string name="signup_confirm_password_label">Confirm Password</string>
+    <string name="signup_confirm_password_hint">Retype Password</string>
+    <string name="signup_accept_terms">Accept terms &amp; Condition</string>
+    <string name="signup_btn">Sign Up</string>
+    <string name="signup_already_member">Already a member? </string>
+    <string name="signup_login">Log In</string>
 </resources>
