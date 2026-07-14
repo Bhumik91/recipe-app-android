@@ -11,6 +11,7 @@ activityKtx = "1.13.0"
 constraintlayout = "2.2.1"
 retrofit = "3.0.0"
 kotlinxSerialization = "1.11.0"
+koin = "4.2.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +26,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

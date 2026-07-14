@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.android)
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization)
     //Kotlin Serialzation dependency

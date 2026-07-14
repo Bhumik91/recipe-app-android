@@ -3,19 +3,19 @@ package com.example.recipeapp.features.auth.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.doOnTextChanged
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.recipeapp.App
 import com.example.recipeapp.core.base.AuthField
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.databinding.ActivityLoginBinding
 import com.example.recipeapp.features.auth.viewmodel.LoginViewModel
-import com.example.recipeapp.features.auth.viewmodel.LoginViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.recipeapp.MainActivity
@@ -25,9 +25,7 @@ import kotlinx.coroutines.launch
 class LoginActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory((application as App).container.authRepository)
-    }
+    private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +47,15 @@ class LoginActivity: AppCompatActivity() {
             attemptLogin()
         }
         
+        binding.etUserName.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+                attemptLogin()
+                true
+            } else {
+                false
+            }
+        }
+        
         binding.etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 attemptLogin()
@@ -56,6 +63,14 @@ class LoginActivity: AppCompatActivity() {
             } else {
                 false
             }
+        }
+
+        binding.etUserName.doOnTextChanged { _, _, _, _ ->
+            binding.tilUserName.error = null
+        }
+
+        binding.etPassword.doOnTextChanged { _, _, _, _ ->
+            binding.tilPassword.error = null
         }
 
         binding.tvSignup.setOnClickListener {
@@ -96,24 +111,21 @@ class LoginActivity: AppCompatActivity() {
                         binding.tilPassword.error = null
 
                         if (state.fieldErrors.isNotEmpty()) {
-                            var firstErrorField: AuthField? = null
                             state.fieldErrors.forEach { (field, errorMsg) ->
-                                if (firstErrorField == null) firstErrorField = field
                                 when (field) {
-                                    AuthField.UserName -> {
-                                        binding.tilUserName.error = errorMsg
-                                    }
-                                    AuthField.Password -> {
-                                        binding.tilPassword.error = errorMsg
-                                    }
+                                    AuthField.UserName -> binding.tilUserName.error = errorMsg
+                                    AuthField.Password -> binding.tilPassword.error = errorMsg
                                     else -> {}
                                 }
                             }
-                            // Shift focus to the first error field
-                            when (firstErrorField) {
-                                AuthField.UserName -> binding.etUserName.requestFocus()
-                                AuthField.Password -> binding.etPassword.requestFocus()
-                                else -> {}
+                            
+                            when (state.fieldErrors.keys.firstOrNull()) {
+                                AuthField.UserName -> binding.etUserName
+                                AuthField.Password -> binding.etPassword
+                                else -> null
+                            }?.let { errorView ->
+                                errorView.requestFocus()
+                                showKeyboard(errorView)
                             }
                         } else {
                             Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
@@ -125,9 +137,14 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         val view = currentFocus ?: binding.root
         imm?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun showKeyboard(view: View) {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.showSoftInput(view, 0)
     }
 
     private fun updateButtonLoadingState(isLoading: Boolean) {
