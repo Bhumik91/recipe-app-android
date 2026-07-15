@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.serialization)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -34,6 +35,10 @@ android {
 }
 
 dependencies {
+    // Jetpack Navigation Fragment
+    implementation(libs.androidx.navigation.fragment.ktx)
+    // Jetpack Navigation UI (for ActionBar, BottomNavigationView, Drawers)
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.koin.android)
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization)

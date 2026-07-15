@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.recipeapp.core.session.SessionManager
-import com.example.recipeapp.features.dashboard.DashBoardActivity
+import com.example.recipeapp.features.dashboard.DashboardActivity
 import com.example.recipeapp.features.onboarding.OnBoardingActivity
 import org.koin.android.ext.android.inject
 
@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        if (!sessionManager.isLoggedIn) {
-            startActivity(Intent(this, OnBoardingActivity::class.java))
-            finish()
-            return
+        val intent = if (!sessionManager.isLoggedIn) {
+            Intent(this, OnBoardingActivity::class.java)
+        } else {
+            Intent(this, DashboardActivity::class.java)
         }
-        startActivity(Intent(this, DashBoardActivity::class.java))
+        startActivity(intent)
         finish()
     }
 }
