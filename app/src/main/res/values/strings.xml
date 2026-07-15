@@ -39,4 +39,13 @@
     <string name="signup_btn">Sign Up</string>
     <string name="signup_already_member">Already a member? </string>
     <string name="signup_login">Log In</string>
+
+    <!-- Bottom Navigation -->
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_saved">Saved</string>
+    <string name="bottom_nav_notification">Notification</string>
+    <string name="bottom_nav_profile">Profile</string>
+
+    <!--  Dashboard Activity  -->
+    <string name="dash_board_add_desc">Add</string>
 </resources>

@@ -38,11 +38,11 @@ class LoginActivity: AppCompatActivity() {
             insets
         }
 
-        configureOnCLicks()
+        configureOnClicks()
         observeUiState()
     }
 
-    private fun configureOnCLicks() {
+    private fun configureOnClicks() {
         binding.btnSignIn.setOnClickListener {
             attemptLogin()
         }
