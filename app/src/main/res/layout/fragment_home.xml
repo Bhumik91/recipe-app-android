@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCCCC">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Home Fragment"
-        android:textSize="24sp"
-        android:textColor="@android:color/black" />
-</FrameLayout>
+        android:background="@color/white"
+        android:elevation="0dp"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/homeRecyclerView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_lg"
+            android:paddingTop="@dimen/home_appbar_vertical_padding"
+            android:paddingEnd="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_md"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <TextView
+                android:id="@+id/greetingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/home_greeting_title"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/subtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/home_greeting_subtitle"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/greetingTextView" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/home_search_height"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:background="@drawable/bg_search_surface"
+                android:contentDescription="@string/home_search_content_description"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@drawable/ic_search_outlined"
+                app:layout_constraintEnd_toStartOf="@id/filterButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subtitleTextView" />
+
+            <ImageButton
+                android:id="@+id/filterButton"
+                android:layout_width="@dimen/home_filter_button_size"
+                android:layout_height="@dimen/home_filter_button_size"
+                android:layout_marginStart="@dimen/spacing_md"
+                android:background="@drawable/bg_filter_button"
+                android:contentDescription="@string/home_filter_content_description"
+                android:padding="@dimen/spacing_md"
+                android:src="@drawable/ic_filter"
+                app:layout_constraintBottom_toBottomOf="@id/searchView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/searchView"
+                app:layout_constraintTop_toTopOf="@id/searchView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chipsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/spacing_lg"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/home_content_bottom_padding"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

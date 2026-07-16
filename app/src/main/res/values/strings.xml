@@ -48,4 +48,36 @@
 
     <!--  Dashboard Activity  -->
     <string name="dash_board_add_desc">Add</string>
+
+    <!-- Home Fragment -->
+    <string name="home_greeting_title">Hello Bhumik</string>
+    <string name="home_greeting_subtitle">What are you cooking today?</string>
+    <string name="home_search_hint">Search recipe</string>
+    <string name="home_search_content_description">Search recipes</string>
+    <string name="home_filter_content_description">Filter recipes</string>
+    <string name="home_saved_section_title">Saved Recipes</string>
+    <string name="home_explore_section_title">Explore Recipes</string>
+    <string name="home_ready_time_label">Time</string>
+    <string name="home_ready_minutes">%1$d mins</string>
+    <string name="home_recipe_image_description">%1$s recipe image</string>
+    <string name="home_saved_recipe_content_description">%1$s is saved</string>
+    <string name="home_toggle_saved_content_description">Toggle saved recipe for %1$s</string>
+    <string name="home_chip_all">All</string>
+    <string name="home_chip_indian">Indian</string>
+    <string name="home_chip_italian">Italian</string>
+    <string name="home_chip_asian">Asian</string>
+    <string name="home_chip_chinese">Chinese</string>
+    <string name="home_chip_mexican">Mexican</string>
+    <string name="home_recipe_greek_salad">Classic Greek Salad</string>
+    <string name="home_recipe_pesto_pasta">Pesto Veggie Pasta</string>
+    <string name="home_recipe_taco_bowl">Smoky Taco Bowl</string>
+    <string name="home_recipe_sushi_stack">Sushi Rice Stack</string>
+    <string name="home_recipe_steak_tomato">Steak with Tomato Sauce</string>
+    <string name="home_recipe_pilaf">Pilaf Sweet Corn Bowl</string>
+    <string name="home_recipe_green_curry">Green Curry Noodles</string>
+    <string name="home_recipe_chickpea_wrap">Chickpea Crunch Wrap</string>
+    <string name="home_recipe_roasted_salmon">Roasted Salmon Plate</string>
+    <string name="home_recipe_creamy_pasta">Creamy Mushroom Pasta</string>
+    <string name="home_recipe_herb_chicken">Herb Chicken Skillet</string>
+    <string name="home_recipe_miso_rice">Miso Tofu Rice Bowl</string>
 </resources>

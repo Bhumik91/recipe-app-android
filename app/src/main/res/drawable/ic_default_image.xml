@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/black" />
+        </shape>
+    </item>
+    <item
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp">
+        <shape android:shape="oval">
+            <gradient
+                android:angle="315"
+                android:endColor="@color/primary_80"
+                android:startColor="@color/primary_20" />
+        </shape>
+    </item>
+    <item
+        android:bottom="34dp"
+        android:left="18dp"
+        android:right="44dp"
+        android:top="20dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/warning_light" />
+        </shape>
+    </item>
+    <item
+        android:bottom="48dp"
+        android:left="62dp"
+        android:right="18dp"
+        android:top="18dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/secondary_80" />
+        </shape>
+    </item>
+    <item
+        android:bottom="18dp"
+        android:left="20dp"
+        android:right="54dp"
+        android:top="56dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/primary" />
+        </shape>
+    </item>
+    <item
+        android:bottom="22dp"
+        android:left="54dp"
+        android:right="18dp"
+        android:top="52dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/secondary_40" />
+        </shape>
+    </item>
+</layer-list>
