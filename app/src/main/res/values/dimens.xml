@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="corner_radius">18dp</dimen>
     <dimen name="corner_radius_standard">14dp</dimen>
+
+    <dimen name="home_appbar_vertical_padding">20dp</dimen>
+    <dimen name="home_search_height">52dp</dimen>
+    <dimen name="home_filter_button_size">52dp</dimen>
+    <dimen name="home_chip_height">40dp</dimen>
+    <dimen name="home_saved_card_width">164dp</dimen>
+    <dimen name="home_saved_card_height">198dp</dimen>
+    <dimen name="home_saved_image_size">112dp</dimen>
+    <dimen name="home_saved_image_overlap">56dp</dimen>
+    <dimen name="home_saved_content_top_padding">64dp</dimen>
+    <dimen name="home_recipe_card_min_height">124dp</dimen>
+    <dimen name="home_recipe_image_size">92dp</dimen>
+    <dimen name="home_content_bottom_padding">128dp</dimen>
 </resources>
