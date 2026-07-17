@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemChipBinding
-import com.example.recipeapp.features.dashboard.home.model.ChipUiModel
 
-class ChipsAdapter : RecyclerView.Adapter<ChipsAdapter.ChipViewHolder>() {
+class ChipsAdapter(
+    private val onChipClicked: (String) -> Unit
+) : RecyclerView.Adapter<ChipsAdapter.ChipViewHolder>() {
 
-    private val items = mutableListOf<ChipUiModel>()
+    private val items = mutableListOf<String>()
+    private var selectedCuisine: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChipViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,9 +23,14 @@ class ChipsAdapter : RecyclerView.Adapter<ChipsAdapter.ChipViewHolder>() {
 
     override fun getItemCount(): Int = items.size
 
-    fun submitList(chips: List<ChipUiModel>) {
+    fun submitList(cuisines: List<String>) {
         items.clear()
-        items.addAll(chips)
+        items.addAll(cuisines)
+        notifyDataSetChanged()
+    }
+
+    fun setSelected(cuisine: String?) {
+        selectedCuisine = cuisine
         notifyDataSetChanged()
     }
 
@@ -31,16 +38,11 @@ class ChipsAdapter : RecyclerView.Adapter<ChipsAdapter.ChipViewHolder>() {
         private val binding: ItemChipBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ChipUiModel) {
-            binding.chip.text = item.label
-            binding.chip.isChecked = item.isSelected
-            binding.chip.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position == RecyclerView.NO_POSITION) return@setOnClickListener
-
-                val currentItem = items[position]
-                items[position] = currentItem.copy(isSelected = !currentItem.isSelected)
-                notifyItemChanged(position)
+        fun bind(cuisine: String) {
+            binding.chipItem.text = cuisine
+            binding.chipItem.isChecked = cuisine == selectedCuisine || (cuisine == "All" && selectedCuisine == null)
+            binding.chipItem.setOnClickListener {
+                onChipClicked(cuisine)
             }
         }
     }

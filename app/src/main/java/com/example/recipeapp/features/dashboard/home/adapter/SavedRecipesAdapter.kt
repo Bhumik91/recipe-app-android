@@ -3,6 +3,9 @@ package com.example.recipeapp.features.dashboard.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil3.load
+import coil3.request.error
+import coil3.request.placeholder
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemSavedRecipeBinding
 import com.example.recipeapp.features.dashboard.home.model.RecipeCardUiModel
@@ -33,17 +36,20 @@ class SavedRecipesAdapter : RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipe
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecipeCardUiModel) {
-            binding.titleTextView.text = item.title
-            binding.timeTextView.text = itemView.context.getString(
+            binding.tvTitle.text = item.title
+            binding.tvTime.text = itemView.context.getString(
                 R.string.home_ready_minutes,
                 item.readyInMinutes
             )
-            binding.recipeImageView.setImageResource(item.imageRes)
-            binding.recipeImageView.contentDescription = itemView.context.getString(
+            binding.ivRecipe.load(item.imageUrl) {
+                placeholder(R.drawable.ic_default_image)
+                error(R.drawable.ic_default_image)
+            }
+            binding.ivRecipe.contentDescription = itemView.context.getString(
                 R.string.home_recipe_image_description,
                 item.title
             )
-            binding.bookmarkImageView.contentDescription = itemView.context.getString(
+            binding.ivSave.contentDescription = itemView.context.getString(
                 R.string.home_saved_recipe_content_description,
                 item.title
             )

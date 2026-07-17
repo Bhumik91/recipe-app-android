@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.recipeapp.databinding.ActivityOnBoardingBinding
-import com.example.recipeapp.features.auth.view.LoginActivity
+import com.example.recipeapp.features.auth.activity.LoginActivity
 
 class OnBoardingActivity : AppCompatActivity() {
 

@@ -7,13 +7,13 @@
     android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/abl_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="0dp"
         app:liftOnScroll="true"
-        app:liftOnScrollTargetViewId="@id/homeRecyclerView">
+        app:liftOnScrollTargetViewId="@id/rv_home">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,18 +25,18 @@
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <TextView
-                android:id="@+id/greetingTextView"
+                android:id="@+id/tv_greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@string/home_greeting_title"
+                tools:text="Hello Bhumik"
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/subtitleTextView"
+                android:id="@+id/tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xs"
@@ -45,23 +45,20 @@
                 android:textColor="@color/gray_3"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/greetingTextView" />
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
+            <include
+                android:id="@+id/sv_search"
+                layout="@layout/view_search_bar"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/home_search_height"
                 android:layout_marginTop="@dimen/spacing_lg"
-                android:background="@drawable/bg_search_surface"
-                android:contentDescription="@string/home_search_content_description"
-                app:iconifiedByDefault="false"
-                app:searchIcon="@drawable/ic_search_outlined"
-                app:layout_constraintEnd_toStartOf="@id/filterButton"
+                app:layout_constraintEnd_toStartOf="@id/btn_filter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subtitleTextView" />
+                app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
 
             <ImageButton
-                android:id="@+id/filterButton"
+                android:id="@+id/btn_filter"
                 android:layout_width="@dimen/home_filter_button_size"
                 android:layout_height="@dimen/home_filter_button_size"
                 android:layout_marginStart="@dimen/spacing_md"
@@ -69,13 +66,13 @@
                 android:contentDescription="@string/home_filter_content_description"
                 android:padding="@dimen/spacing_md"
                 android:src="@drawable/ic_filter"
-                app:layout_constraintBottom_toBottomOf="@id/searchView"
+                app:layout_constraintBottom_toBottomOf="@id/sv_search"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/searchView"
-                app:layout_constraintTop_toTopOf="@id/searchView" />
+                app:layout_constraintStart_toEndOf="@id/sv_search"
+                app:layout_constraintTop_toTopOf="@id/sv_search" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/chipsRecyclerView"
+                android:id="@+id/rv_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_md"
@@ -85,12 +82,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchView" />
+                app:layout_constraintTop_toBottomOf="@id/sv_search" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeRecyclerView"
+        android:id="@+id/rv_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -100,4 +97,11 @@
         android:paddingEnd="@dimen/spacing_lg"
         android:paddingBottom="@dimen/home_content_bottom_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.example.recipeapp.features.auth.view
+package com.example.recipeapp.features.auth.activity
 
 import android.os.Bundle
 import android.view.View

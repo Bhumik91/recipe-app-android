@@ -20,7 +20,8 @@
         android:paddingBottom="@dimen/spacing_md">
 
         <TextView
-            android:id="@+id/titleTextView"
+            android:id="@+id/tv_title"
+            tools:text="Classic Greek Salad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -28,13 +29,13 @@
             android:maxLines="2"
             android:textColor="@color/gray_1"
             android:textSize="19sp"
-            app:layout_constraintBottom_toTopOf="@+id/timeRow"
-            app:layout_constraintEnd_toStartOf="@+id/recipeImageView"
+            app:layout_constraintBottom_toTopOf="@+id/ll_time"
+            app:layout_constraintEnd_toStartOf="@+id/iv_recipe"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/timeRow"
+            android:id="@+id/ll_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
@@ -51,7 +52,7 @@
 
             <TextView
                 tools:text="15 mins"
-                android:id="@+id/timeTextView"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_xs"
@@ -61,17 +62,18 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/bookmarkButton"
+            android:id="@+id/btn_save"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="@drawable/bg_icon_circle"
             android:padding="@dimen/spacing_sm"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/recipeImageView"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+            app:layout_constraintEnd_toStartOf="@+id/iv_recipe"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <ImageView
-            android:id="@+id/recipeImageView"
+            android:id="@+id/iv_recipe"
             android:layout_width="@dimen/home_recipe_image_size"
             android:layout_height="@dimen/home_recipe_image_size"
             android:contentDescription="@null"

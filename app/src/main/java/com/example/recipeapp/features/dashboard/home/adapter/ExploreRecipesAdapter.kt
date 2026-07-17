@@ -3,11 +3,16 @@ package com.example.recipeapp.features.dashboard.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil3.load
+import coil3.request.error
+import coil3.request.placeholder
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
 import com.example.recipeapp.features.dashboard.home.model.RecipeCardUiModel
 
-class ExploreRecipesAdapter : RecyclerView.Adapter<ExploreRecipesAdapter.ExploreRecipeViewHolder>() {
+class ExploreRecipesAdapter(
+    private val onSaveClick: (recipeId: Int) -> Unit
+) : RecyclerView.Adapter<ExploreRecipesAdapter.ExploreRecipeViewHolder>() {
 
     private val items = mutableListOf<RecipeCardUiModel>()
 
@@ -33,34 +38,34 @@ class ExploreRecipesAdapter : RecyclerView.Adapter<ExploreRecipesAdapter.Explore
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecipeCardUiModel) {
-            binding.titleTextView.text = item.title
-            binding.timeTextView.text = itemView.context.getString(
+            binding.tvTitle.text = item.title
+            binding.tvTime.text = itemView.context.getString(
                 R.string.home_ready_minutes,
                 item.readyInMinutes
             )
-            binding.recipeImageView.setImageResource(item.imageRes)
-            binding.recipeImageView.contentDescription = itemView.context.getString(
+            binding.ivRecipe.load(item.imageUrl) {
+                placeholder(R.drawable.ic_default_image)
+                error(R.drawable.ic_default_image)
+            }
+            binding.ivRecipe.contentDescription = itemView.context.getString(
                 R.string.home_recipe_image_description,
                 item.title
             )
-            bindBookmark(item)
+            bindSave(item)
         }
 
-        private fun bindBookmark(item: RecipeCardUiModel) {
-            binding.bookmarkButton.setImageResource(
+        private fun bindSave(item: RecipeCardUiModel) {
+            binding.btnSave.setImageResource(
                 if (item.isSaved) R.drawable.ic_saved_filled else R.drawable.ic_saved_outlined
             )
-            binding.bookmarkButton.contentDescription = itemView.context.getString(
+            binding.btnSave.contentDescription = itemView.context.getString(
                 R.string.home_toggle_saved_content_description,
                 item.title
             )
-            binding.bookmarkButton.setOnClickListener {
+            binding.btnSave.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position == RecyclerView.NO_POSITION) return@setOnClickListener
-
-                val currentItem = items[position]
-                items[position] = currentItem.copy(isSaved = !currentItem.isSaved)
-                notifyItemChanged(position)
+                onSaveClick(items[position].id)
             }
         }
     }
