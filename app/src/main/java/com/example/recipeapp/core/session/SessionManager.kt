@@ -24,6 +24,9 @@ class SessionManager(context: Context) {
         }
     }
 
+    fun getUserId(): Int = prefs.getInt(KEY_ID, 0)
+    fun getUserName(): String = prefs.getString(KEY_NAME, "") ?: ""
+
     fun clearSession() {
         prefs.edit { clear() }
     }

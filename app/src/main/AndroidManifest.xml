@@ -29,15 +29,19 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".features.auth.view.LoginActivity"
+            android:name=".features.auth.activity.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".features.auth.view.SignupActivity"
+            android:name=".features.auth.activity.SignupActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".features.dashboard.DashboardActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".features.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
