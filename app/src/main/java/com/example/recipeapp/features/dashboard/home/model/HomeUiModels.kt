@@ -4,12 +4,13 @@ data class RecipeCardUiModel(
     val id: Int,
     val title: String,
     val readyInMinutes: Int,
-    val imageRes: Int,
+    val imageUrl: String,
     val isSaved: Boolean
 )
 
-data class ChipUiModel(
-    val id: Int,
-    val label: String,
-    val isSelected: Boolean = false
+data class PaginatedRecipes(
+    val results: List<RecipeCardUiModel>,
+    val offset: Int,
+    val number: Int,
+    val totalResults: Int
 )
