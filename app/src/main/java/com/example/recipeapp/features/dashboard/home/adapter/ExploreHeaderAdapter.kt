@@ -16,7 +16,7 @@ class ExploreHeaderAdapter : RecyclerView.Adapter<ExploreHeaderAdapter.ExploreHe
 
     override fun getItemCount(): Int = 1
 
-    inner class ExploreHeaderViewHolder(
+     class ExploreHeaderViewHolder(
         binding: ItemExploreHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root)
 }
