@@ -25,29 +25,29 @@ class DashboardActivity : AppCompatActivity() {
             
             val isKeyboardVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
             if (isKeyboardVisible) {
-                binding.bottomAppBar.visibility = android.view.View.GONE
+                binding.babMain.visibility = android.view.View.GONE
                 binding.fabAdd.hide()
             } else {
-                binding.bottomAppBar.visibility = android.view.View.VISIBLE
+                binding.babMain.visibility = android.view.View.VISIBLE
                 binding.fabAdd.show()
             }
             insets
         }
         
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as androidx.navigation.fragment.NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_nav_host) as androidx.navigation.fragment.NavHostFragment
         val navController = navHostFragment.navController
-        androidx.navigation.ui.NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+        androidx.navigation.ui.NavigationUI.setupWithNavController(binding.bnvMain, navController)
     }
 
     fun updateBottomBarForScroll(scrollingDown: Boolean) {
-        val params = binding.bottomAppBar.layoutParams as? CoordinatorLayout.LayoutParams ?: return
+        val params = binding.babMain.layoutParams as? CoordinatorLayout.LayoutParams ?: return
         val behavior = params.behavior as? BottomAppBar.Behavior ?: return
 
         if (scrollingDown) {
-            behavior.slideDown(binding.bottomAppBar)
+            behavior.slideDown(binding.babMain)
             binding.fabAdd.hide()
         } else {
-            behavior.slideUp(binding.bottomAppBar)
+            behavior.slideUp(binding.babMain)
             binding.fabAdd.show()
         }
     }
