@@ -30,7 +30,7 @@ class SavedSectionAdapter(
         fun bind(adapter: SavedRecipesAdapter) {
             val spacing = itemView.resources.getDimensionPixelSize(R.dimen.spacing_md)
 
-            binding.savedRecyclerView.apply {
+            binding.rvSaved.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 this.adapter = adapter
                 itemAnimator = null
