@@ -1,0 +1,100 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginHorizontal="20dp"
+    app:cardBackgroundColor="@color/primary_20"
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:cardElevation="11dp">
+
+    <!-- Flat ConstraintLayout inside the card so all overlays (text, icons, buttons)
+         sit on top of the image and can be positioned absolutely. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Full-bleed recipe image with a gradient overlay to ensure text legibility. -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivRecipeImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:foreground="@drawable/bg_recipe_image_gradient"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <!-- Recipe title overlay: positioned bottom-left with a narrow right margin
+             to avoid the bookmark button. elevation="2dp" sits above the gradient. -->
+        <TextView
+            android:id="@+id/tvRecipeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="14dp"
+            android:elevation="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
+            android:maxLines="2"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/ivTimer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Traditional spare ribs baked" />
+
+        <!-- Timer icon (clock), positioned bottom-left corner. -->
+        <ImageView
+            android:id="@+id/ivTimer"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/home_ready_time_label"
+            android:elevation="2dp"
+            android:src="@drawable/ic_timer_outlined"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@android:color/white" />
+
+        <!-- Cooking time text, right after the timer icon. -->
+        <TextView
+            android:id="@+id/tvCookingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivTimer"
+            app:layout_constraintStart_toEndOf="@id/ivTimer"
+            app:layout_constraintTop_toTopOf="@id/ivTimer"
+            tools:text="20 min" />
+
+        <!-- Static bookmark indicator, bottom-right corner with a circular background.
+             Non-interactive — removal from the saved list happens via swipe gesture. -->
+        <ImageView
+            android:id="@+id/ivBookmark"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_icon_circle"
+            android:contentDescription="@null"
+            android:elevation="6dp"
+            android:padding="2dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_saved_outlined"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

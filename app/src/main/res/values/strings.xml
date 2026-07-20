@@ -64,6 +64,13 @@
     <string name="home_saved_recipe_content_description">%1$s is saved</string>
     <string name="home_toggle_saved_content_description">Toggle saved recipe for %1$s</string>
 
+    <!-- Saved Screen -->
+    <string name="saved_recipe_removed_message">Recipe removed</string>
+    <string name="saved_recipe_undo_action">Undo</string>
+    <string name="saved_recipe_remove_error">Couldn\'t update saved recipes. Please try again.</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
+    <string name="error_try_again">Try Again</string>
+
     <!-- Diet Filter Bottom Sheet (shared: Home + Search) -->
     <string name="filter_sheet_title">Filter Search</string>
     <string name="filter_sheet_clear">Clear</string>
