@@ -8,15 +8,17 @@ import coil3.request.error
 import coil3.request.placeholder
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemSavedRecipeBinding
-import com.example.recipeapp.features.dashboard.home.model.RecipeCardUiModel
+import com.example.recipeapp.features.recipes.model.RecipeCardUiModel
 
-class SavedRecipesAdapter : RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipeViewHolder>() {
+class SavedRecipesAdapter(
+    private val onItemClick: (recipeId: Int) -> Unit
+) : RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipeViewHolder>() {
 
     private val items = mutableListOf<RecipeCardUiModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedRecipeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return SavedRecipeViewHolder(ItemSavedRecipeBinding.inflate(inflater, parent, false))
+        return SavedRecipeViewHolder(ItemSavedRecipeBinding.inflate(inflater, parent, false), onItemClick)
     }
 
     override fun onBindViewHolder(holder: SavedRecipeViewHolder, position: Int) {
@@ -32,7 +34,8 @@ class SavedRecipesAdapter : RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipe
     }
 
      class SavedRecipeViewHolder(
-        private val binding: ItemSavedRecipeBinding
+        private val binding: ItemSavedRecipeBinding,
+        private val onItemClick: (recipeId: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecipeCardUiModel) {
@@ -53,6 +56,9 @@ class SavedRecipesAdapter : RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipe
                 R.string.home_saved_recipe_content_description,
                 item.title
             )
+            itemView.setOnClickListener {
+                onItemClick(item.id)
+            }
         }
     }
 }

@@ -8,10 +8,11 @@ import coil3.request.error
 import coil3.request.placeholder
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
-import com.example.recipeapp.features.dashboard.home.model.RecipeCardUiModel
+import com.example.recipeapp.features.recipes.model.RecipeCardUiModel
 
 class ExploreRecipesAdapter(
-    private val onSaveClick: (recipeId: Int) -> Unit
+    private val onSaveClick: (recipeId: Int) -> Unit,
+    private val onItemClick: (recipeId: Int) -> Unit
 ) : RecyclerView.Adapter<ExploreRecipesAdapter.ExploreRecipeViewHolder>() {
 
     private val items = mutableListOf<RecipeCardUiModel>()
@@ -52,6 +53,11 @@ class ExploreRecipesAdapter(
                 item.title
             )
             bindSave(item)
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position == RecyclerView.NO_POSITION) return@setOnClickListener
+                onItemClick(items[position].id)
+            }
         }
 
         private fun bindSave(item: RecipeCardUiModel) {

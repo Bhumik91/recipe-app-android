@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemSavedSectionBinding
-import com.example.recipeapp.features.dashboard.home.ui.HorizontalSpaceItemDecoration
+import com.example.recipeapp.common.itemdecor.HorizontalSpaceItemDecoration
 
 class SavedSectionAdapter(
     private val savedRecipesAdapter: SavedRecipesAdapter
