@@ -106,4 +106,9 @@
     <string name="recipe_detail_link_copied">Link is copied</string>
     <string name="recipe_detail_close_content_description">Close</string>
 
+
+    <!-- Search Screen -->
+    <string name="search_no_results">No results for \'%1$s\'</string>
+    <string name="search_recent_searches_label">Recent searches</string>
+    <string name="search_results_count">%1$d results found</string>
 </resources>
