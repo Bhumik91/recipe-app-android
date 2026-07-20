@@ -4,6 +4,7 @@ import com.example.recipeapp.core.network.AuthInterceptor
 import com.example.recipeapp.core.network.RetrofitClient
 import com.example.recipeapp.core.network.TokenAuthenticator
 import com.example.recipeapp.core.session.AssetJsonLoader
+import com.example.recipeapp.core.session.RecentSearchesManager
 import com.example.recipeapp.core.session.SavedRecipesManager
 import com.example.recipeapp.core.session.SessionManager
 import com.example.recipeapp.features.auth.data.AuthApiService
@@ -19,6 +20,7 @@ import com.example.recipeapp.features.recipes.data.FallbackRecipeRepository
 import com.example.recipeapp.features.recipes.data.RecipeApiService
 import com.example.recipeapp.features.recipes.data.RecipeRepository
 import com.example.recipeapp.features.recipes.data.RemoteRecipeRepositoryImpl
+import com.example.recipeapp.features.search.viewmodel.SearchViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -61,12 +63,15 @@ val appModule = module {
     single { AssetJsonLoader(androidContext()) }
 
     // Manual switch: comment/uncomment to pick which impl every ViewModel's RecipeRepository resolves to.
-    single<RecipeRepository> { DummyRecipeRepositoryImpl(get(), get(), get()) }
-//    single<RecipeRepository> { RemoteRecipeRepositoryImpl(get(), get(), get()) }
+//    single<RecipeRepository> { DummyRecipeRepositoryImpl(get(), get(), get()) }
+    single<RecipeRepository> { RemoteRecipeRepositoryImpl(get(), get(), get()) }
 //    single<RecipeRepository> { FallbackRecipeRepository(get(REMOTE_RECIPE_REPO), get(DUMMY_RECIPE_REPO)) }
 
     // SavedRecipesManager (singleton, scoped per logged-in user)
     single { SavedRecipesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
+
+    // RecentSearchesManager (singleton, scoped per logged-in user)
+    single { RecentSearchesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
 
     // ViewModels
     viewModel { LoginViewModel(get()) }
@@ -74,4 +79,5 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { RecipeDetailViewModel(get()) }
     viewModel { SavedViewModel(get()) }
+    viewModel { SearchViewModel(get(), get()) }
 }
