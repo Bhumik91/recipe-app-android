@@ -12,6 +12,7 @@ import com.example.recipeapp.features.auth.data.AuthRepositoryImpl
 import com.example.recipeapp.features.auth.viewmodel.LoginViewModel
 import com.example.recipeapp.features.auth.viewmodel.SignupViewModel
 import com.example.recipeapp.features.dashboard.home.viewmodel.HomeViewModel
+import com.example.recipeapp.features.recipeDetail.viewmodel.RecipeDetailViewModel
 import com.example.recipeapp.features.recipes.data.DummyRecipeRepositoryImpl
 import com.example.recipeapp.features.recipes.data.FallbackRecipeRepository
 import com.example.recipeapp.features.recipes.data.RecipeApiService
@@ -70,4 +71,5 @@ val appModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignupViewModel() }
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { RecipeDetailViewModel(get()) }
 }

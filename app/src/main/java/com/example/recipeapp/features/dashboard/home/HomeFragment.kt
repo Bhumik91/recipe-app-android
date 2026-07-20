@@ -20,6 +20,7 @@ import com.example.recipeapp.features.dashboard.DashboardActivity
 import com.example.recipeapp.features.dashboard.home.adapter.ChipsAdapter
 import com.example.recipeapp.features.dashboard.home.adapter.ExploreHeaderAdapter
 import com.example.recipeapp.features.dashboard.home.adapter.ExploreRecipesAdapter
+import com.example.recipeapp.features.recipeDetail.RecipeDetailActivity
 import com.example.recipeapp.features.search.SearchActivity
 import com.example.recipeapp.features.dashboard.home.adapter.SavedRecipesAdapter
 import com.example.recipeapp.features.dashboard.home.adapter.SavedSectionAdapter
@@ -192,8 +193,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // TODO(recipe-detail): wire up once RecipeDetailActivity lands (see feature/recipe-detail)
-    private fun openRecipeDetail(recipeId: Int) = Unit
+    private fun openRecipeDetail(recipeId: Int) {
+        startActivity(RecipeDetailActivity.newIntent(requireContext(), recipeId))
+    }
     private fun setupChipList() {
         val chipSpacing = resources.getDimensionPixelSize(R.dimen.spacing_sm)
 
