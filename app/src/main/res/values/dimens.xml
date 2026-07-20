@@ -21,7 +21,6 @@
     <dimen name="home_recipe_image_size">92dp</dimen>
     <dimen name="home_content_bottom_padding">128dp</dimen>
     <dimen name="filter_active_dot_size">10dp</dimen>
-    <dimen name="filter_active_dot_size">10dp</dimen>
 
     <dimen name="recipe_detail_image_height">200dp</dimen>
     <dimen name="recipe_detail_toolbar_icon_size">40dp</dimen>
