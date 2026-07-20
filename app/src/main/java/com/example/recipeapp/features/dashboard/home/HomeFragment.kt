@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import com.example.recipeapp.common.filter.DietFilterBottomSheet
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.example.recipeapp.features.dashboard.DashboardActivity
@@ -22,12 +23,15 @@ import com.example.recipeapp.features.dashboard.home.adapter.ExploreRecipesAdapt
 import com.example.recipeapp.features.search.SearchActivity
 import com.example.recipeapp.features.dashboard.home.adapter.SavedRecipesAdapter
 import com.example.recipeapp.features.dashboard.home.adapter.SavedSectionAdapter
-import com.example.recipeapp.features.dashboard.home.ui.HorizontalSpaceItemDecoration
-import com.example.recipeapp.features.dashboard.home.ui.VerticalSpaceItemDecoration
+import com.example.recipeapp.common.itemdecor.HorizontalSpaceItemDecoration
+import com.example.recipeapp.common.itemdecor.VerticalSpaceItemDecoration
 import com.example.recipeapp.features.dashboard.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+// Home tab: greeting header, search bar entry point, cuisine chip row, saved-recipes
+// carousel, and the paginated explore-recipes list. Filter selection itself is owned by
+// HomeViewModel (see FilterState) so it survives fragment view recreation.
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -35,15 +39,20 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
 
+    // Cuisine chip tap just forwards the tapped label to the ViewModel, which owns the
+    // multi-select toggle logic (see HomeViewModel.toggleFilter).
     private val chipsAdapter = ChipsAdapter { cuisine ->
         viewModel.toggleFilter(cuisine)
     }
-    private val savedRecipesAdapter = SavedRecipesAdapter()
+    private val savedRecipesAdapter = SavedRecipesAdapter(
+        onItemClick = { recipeId -> openRecipeDetail(recipeId) }
+    )
     private val savedSectionAdapter = SavedSectionAdapter(savedRecipesAdapter)
     private val exploreHeaderAdapter = ExploreHeaderAdapter()
-    private val exploreRecipesAdapter = ExploreRecipesAdapter { recipeId ->
-        viewModel.onSaveToggled(recipeId)
-    }
+    private val exploreRecipesAdapter = ExploreRecipesAdapter(
+        onSaveClick = { recipeId -> viewModel.onSaveToggled(recipeId) },
+        onItemClick = { recipeId -> openRecipeDetail(recipeId) }
+    )
 
 
 
@@ -94,6 +103,7 @@ class HomeFragment : Fragment() {
         setupSearchBar()
         setupChipList()
         setupHomeContent()
+        setupFilterButton()
         observeUiState()
         viewModel.loadInitial()
     }
@@ -114,13 +124,20 @@ class HomeFragment : Fragment() {
                         when (state) {
                             is UiState.Success -> {
                                 binding.pbLoading.visibility = View.GONE
+                                binding.rvHome.visibility = View.VISIBLE
                                 exploreRecipesAdapter.submitList(state.data)
                             }
                             is UiState.Loading -> {
+                                // rv_home is hidden (not just covered by the spinner) while
+                                // loading so an empty list never flashes underneath it, and
+                                // so the RecyclerView skips measure/layout/draw entirely
+                                // during this window.
                                 binding.pbLoading.visibility = View.VISIBLE
+                                binding.rvHome.visibility = View.GONE
                             }
                             is UiState.Error -> {
                                 binding.pbLoading.visibility = View.GONE
+                                binding.rvHome.visibility = View.VISIBLE
                             }
                             else -> Unit
                         }
@@ -137,8 +154,13 @@ class HomeFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.selectedCuisine.collect { selected ->
-                        chipsAdapter.setSelected(selected)
+                    // Single collector drives both the cuisine chip row and the filter-active
+                    // badge dot from one FilterState emission, keeping them from ever
+                    // disagreeing about what's currently selected.
+                    viewModel.filterState.collect { state ->
+                        chipsAdapter.submitList(state.cuisineChips)
+                        binding.viewFilterActiveDot.visibility =
+                            if (state.isFilterActive) View.VISIBLE else View.GONE
                     }
                 }
             }
@@ -151,6 +173,27 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
     }
+
+    private fun setupFilterButton() {
+        // DietFilterBottomSheet has no ViewModel of its own; it reports the user's Apply tap
+        // back through this FragmentResult listener instead.
+        childFragmentManager.setFragmentResultListener(
+            DietFilterBottomSheet.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val selectedDiets = bundle.getStringArrayList(DietFilterBottomSheet.RESULT_SELECTED_DIETS).orEmpty()
+            viewModel.applyDietFilter(selectedDiets)
+        }
+
+        binding.btnFilter.setOnClickListener {
+            // Pass the ViewModel's current diet selection so the sheet reopens with the
+            // right chips pre-checked instead of resetting every time it's shown.
+            DietFilterBottomSheet.show(childFragmentManager, viewModel.filterState.value.selectedDiets.toList())
+        }
+    }
+
+    // TODO(recipe-detail): wire up once RecipeDetailActivity lands (see feature/recipe-detail)
+    private fun openRecipeDetail(recipeId: Int) = Unit
     private fun setupChipList() {
         val chipSpacing = resources.getDimensionPixelSize(R.dimen.spacing_sm)
 
@@ -168,7 +211,6 @@ class HomeFragment : Fragment() {
                 )
             }
         }
-        chipsAdapter.submitList(viewModel.getCuisines())
     }
 
 

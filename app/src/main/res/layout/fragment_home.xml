@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:liftOnScrollColor="@color/white"
         android:elevation="0dp"
         app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/rv_home">
@@ -70,6 +71,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/sv_search"
                 app:layout_constraintTop_toTopOf="@id/sv_search" />
+
+            <!-- Small badge dot anchored to btn_filter's top-end corner; HomeFragment toggles
+                 its visibility from FilterState.isFilterActive so the user can tell at a
+                 glance whether any cuisine/diet filter is currently applied. -->
+            <View
+                android:id="@+id/view_filter_active_dot"
+                android:layout_width="@dimen/filter_active_dot_size"
+                android:layout_height="@dimen/filter_active_dot_size"
+                android:background="@drawable/bg_filter_active_dot"
+                android:contentDescription="@string/home_filter_active_content_description"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/btn_filter"
+                app:layout_constraintTop_toTopOf="@id/btn_filter"
+                tools:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_chips"
