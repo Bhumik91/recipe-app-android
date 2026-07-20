@@ -69,4 +69,34 @@
     <string name="filter_sheet_clear">Clear</string>
     <string name="filter_sheet_diet_label">Diet</string>
     <string name="filter_sheet_apply">Filter</string>
+
+    <!-- Recipe Detail Activity -->
+    <string name="recipe_detail_back_content_description">Back</string>
+    <string name="recipe_detail_more_content_description">More options</string>
+    <string name="recipe_detail_image_content_description">%1$s recipe image</string>
+    <string name="recipe_detail_save_indicator_description">Recipe saved indicator</string>
+    <string name="recipe_detail_attribution">By %1$s</string>
+    <string name="recipe_detail_ready_minutes">%1$d mins</string>
+    <string name="recipe_detail_servings_label">Servings</string>
+    <string name="recipe_detail_decrease_servings_description">Decrease servings</string>
+    <string name="recipe_detail_increase_servings_description">Increase servings</string>
+    <string name="recipe_detail_tab_ingredients">Ingredients</string>
+    <string name="recipe_detail_tab_procedure">Procedure</string>
+    <string name="recipe_detail_no_instructions_title">No instructions yet</string>
+    <string name="recipe_detail_no_instructions_body">This recipe doesn\'t have step-by-step instructions available.</string>
+    <string name="recipe_detail_step_number">Step %1$d</string>
+    <string name="recipe_detail_ingredients_count">%1$d ingredients</string>
+    <string name="recipe_detail_steps_count">%1$d steps</string>
+    <string name="recipe_detail_required_ingredients">Required ingredients: %1$s</string>
+    <string name="recipe_detail_menu_share">Share</string>
+    <string name="recipe_detail_menu_save">Save recipe</string>
+    <string name="recipe_detail_menu_unsave">Remove from saved</string>
+
+    <!-- Recipe Link Dialog -->
+    <string name="recipe_detail_link_dialog_title">Recipe Link</string>
+    <string name="recipe_detail_link_dialog_subtitle">Copy recipe link and share your recipe link with friends and family.</string>
+    <string name="recipe_detail_copy_link">Copy Link</string>
+    <string name="recipe_detail_link_copied">Link is copied</string>
+    <string name="recipe_detail_close_content_description">Close</string>
+
 </resources>

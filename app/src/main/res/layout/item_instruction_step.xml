@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/spacing_xs"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_standard"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/gray_4"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_md">
+
+        <TextView
+            android:id="@+id/tv_step_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/primary"
+            android:textSize="15sp"
+            tools:text="Step 1" />
+
+        <TextView
+            android:id="@+id/tv_step_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:fontFamily="@font/poppins_regular"
+            android:lineSpacingExtra="4sp"
+            android:textColor="@color/gray_1"
+            android:textSize="15sp"
+            tools:text="Preheat the oven to 200°C and line a baking tray with parchment paper." />
+
+        <TextView
+            android:id="@+id/tv_step_required_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/gray_3"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:text="Required ingredients: garlic, scallions"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
