@@ -8,9 +8,13 @@ import retrofit2.Retrofit
 
 object RetrofitClient {
 
-//    private const val SPOONACULAR_API_KEY = "c2767743e1f54f828fd0f5f5ce1428be"
-//    private const val SPOONACULAR_API_KEY = "65c419295e3e43509b01d5a7720f3e43"
-    private const val SPOONACULAR_API_KEY = "ed46c147ed734413b3b10e16a8fa0b93"
+    private val SPOONACULAR_API_KEYS = arrayOf(
+        "c2767743e1f54f828fd0f5f5ce1428be",
+        "65c419295e3e43509b01d5a7720f3e43",
+        "ed46c147ed734413b3b10e16a8fa0b93",
+        "7355913421ea473d9889c7c50442c78a"
+    )
+    private const val SPOONACULAR_API_KEY_INDEX = 3
 
     private val json = Json { ignoreUnknownKeys = true }
     private val contentType = "application/json".toMediaType()
@@ -34,7 +38,7 @@ object RetrofitClient {
         .addInterceptor { chain ->
             val original = chain.request()
             val url = original.url.newBuilder()
-                .addQueryParameter("apiKey", SPOONACULAR_API_KEY)
+                .addQueryParameter("apiKey", SPOONACULAR_API_KEYS[SPOONACULAR_API_KEY_INDEX])
                 .build()
             chain.proceed(original.newBuilder().url(url).build())
         }

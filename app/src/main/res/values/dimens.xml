@@ -5,7 +5,7 @@
     <dimen name="spacing_md">16dp</dimen>
     <dimen name="spacing_lg">24dp</dimen>
     <dimen name="spacing_xl">32dp</dimen>
-    <dimen name="corner_radius">18dp</dimen>
+    <dimen name="corner_radius">20dp</dimen>
     <dimen name="corner_radius_standard">14dp</dimen>
 
     <dimen name="home_appbar_vertical_padding">20dp</dimen>
