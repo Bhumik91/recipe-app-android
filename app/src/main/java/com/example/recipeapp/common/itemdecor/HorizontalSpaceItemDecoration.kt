@@ -1,4 +1,4 @@
-package com.example.recipeapp.features.dashboard.home.ui
+package com.example.recipeapp.common.itemdecor
 
 import android.graphics.Rect
 import android.view.View

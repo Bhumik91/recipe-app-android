@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Chip label: white on the checked (filled teal) state for contrast, primary teal on the
+     unchecked (white) state. Same theme-attribute leak fix as chip_background_selector.xml. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?attr/colorOnPrimary" android:state_checked="true" />
-    <item android:color="?attr/colorPrimary" />
+    <item android:color="@color/white" android:state_checked="true" />
+    <item android:color="@color/primary" />
 </selector>

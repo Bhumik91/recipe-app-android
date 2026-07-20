@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Chip fill: primary teal when checked, white otherwise. Previously pointed at
+  ?attr/colorPrimary (a Material theme attribute) instead of @color/primary directly — since
+  the app theme didn't fully override it in every context, Material3 fell back to its own
+  default green tonal palette. Hardcoding app colors here keeps chip styling independent of
+  theme attribute resolution. Note: this did not fully resolve the unchecked-chip green tint
+  seen on device — see the KNOWN ISSUE note in item_chip.xml for what's been ruled out.
+-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?attr/colorPrimary" android:state_checked="true" />
+    <item android:color="@color/primary" android:state_checked="true" />
     <item android:color="@color/white" />
 </selector>

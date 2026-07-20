@@ -1,4 +1,4 @@
-package com.example.recipeapp.features.dashboard.home.model
+package com.example.recipeapp.features.recipes.model
 
 data class RecipeCardUiModel(
     val id: Int,

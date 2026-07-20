@@ -22,6 +22,12 @@ class SavedRecipesManager(context: Context, userId: String) {
         prefs.edit { putStringSet(KEY_SAVED_IDS, current) }
     }
 
+    fun removeSaved(recipeId: Int) {
+        val current = getSavedIds().map { it.toString() }.toMutableSet()
+        current.remove(recipeId.toString())
+        prefs.edit { putStringSet(KEY_SAVED_IDS, current) }
+    }
+
     companion object {
         private const val KEY_SAVED_IDS = "saved_recipe_ids"
     }

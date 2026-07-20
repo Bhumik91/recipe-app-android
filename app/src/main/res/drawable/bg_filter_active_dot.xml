@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filled orange dot with a white ring, used as the "filter active" badge on Home's filter
+     button (view_filter_active_dot in fragment_home.xml). White stroke keeps it legible
+     when it overlaps the filter icon's own background. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/secondary" />
+    <stroke
+        android:width="1.5dp"
+        android:color="@color/white" />
+</shape>

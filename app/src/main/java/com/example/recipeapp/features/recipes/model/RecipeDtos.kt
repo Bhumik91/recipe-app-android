@@ -1,6 +1,5 @@
 package com.example.recipeapp.features.recipes.model
 
-import com.example.recipeapp.features.dashboard.home.model.RecipeCardUiModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -19,11 +18,3 @@ data class SpoonacularRecipeDto(
     val readyInMinutes: Int? = null
 )
 
-fun SpoonacularRecipeDto.toUiModel(isSaved: Boolean): RecipeCardUiModel =
-    RecipeCardUiModel(
-        id = id,
-        title = title,
-        readyInMinutes = readyInMinutes ?: 0,
-        imageUrl = image ?: "",
-        isSaved = isSaved
-    )

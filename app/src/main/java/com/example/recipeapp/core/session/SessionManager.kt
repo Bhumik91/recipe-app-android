@@ -27,6 +27,16 @@ class SessionManager(context: Context) {
     fun getUserId(): Int = prefs.getInt(KEY_ID, 0)
     fun getUserName(): String = prefs.getString(KEY_NAME, "") ?: ""
 
+    fun getAccessToken(): String? = prefs.getString(KEY_ACCESS_TOKEN, null)
+    fun getRefreshToken(): String? = prefs.getString(KEY_REFRESH_TOKEN, null)
+
+    fun updateTokens(accessToken: String, refreshToken: String) {
+        prefs.edit {
+            putString(KEY_ACCESS_TOKEN, accessToken)
+            putString(KEY_REFRESH_TOKEN, refreshToken)
+        }
+    }
+
     fun clearSession() {
         prefs.edit { clear() }
     }

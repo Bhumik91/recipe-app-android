@@ -55,6 +55,7 @@
     <string name="home_search_hint">Search recipe</string>
     <string name="home_search_content_description">Search recipes</string>
     <string name="home_filter_content_description">Filter recipes</string>
+    <string name="home_filter_active_content_description">Filters applied</string>
     <string name="home_saved_section_title">Saved Recipes</string>
     <string name="home_explore_section_title">Explore Recipes</string>
     <string name="home_ready_time_label">Time</string>
@@ -62,4 +63,10 @@
     <string name="home_recipe_image_description">%1$s recipe image</string>
     <string name="home_saved_recipe_content_description">%1$s is saved</string>
     <string name="home_toggle_saved_content_description">Toggle saved recipe for %1$s</string>
+
+    <!-- Diet Filter Bottom Sheet (shared: Home + Search) -->
+    <string name="filter_sheet_title">Filter Search</string>
+    <string name="filter_sheet_clear">Clear</string>
+    <string name="filter_sheet_diet_label">Diet</string>
+    <string name="filter_sheet_apply">Filter</string>
 </resources>
