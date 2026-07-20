@@ -1,23 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCCCFF"
-    android:clipToPadding="false"
-    android:paddingBottom="@dimen/home_content_bottom_padding">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
-    <LinearLayout
+    <!-- Toolbar with scroll behavior: scroll|enterAlways makes it hide on scroll-down
+         and re-appear on scroll-up. Material3 titleCentered centers the "Saved" title. -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="1000dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        app:liftOnScrollColor="@color/white"
+        app:elevation="0dp">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_saved"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Saved"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearance"
+            app:titleTextColor="@color/black" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main list: layout_behavior syncs scroll position with AppBarLayout,
+         so the toolbar shows/hides in response. -->
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/item_saved"
+        android:id="@+id/rv_saved"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/home_content_bottom_padding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Loading spinner, centered. Hidden on Success/Error. -->
+    <ProgressBar
+        android:id="@+id/pb_saved_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <!-- Error state (UiState.Error): vertical LinearLayout with gravity="center"
+         puts the error message and "Try Again" link in the middle of the screen. -->
+    <LinearLayout
+        android:id="@+id/error_state_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="@dimen/spacing_lg"
+        android:paddingEnd="@dimen/spacing_lg"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Error message text, centered within its own bounds. -->
         <TextView
+            android:id="@+id/tv_error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saved Fragment"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
+            android:text="@string/error_something_went_wrong"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center" />
+
+        <!-- Clickable "Try Again" link, styled in primary color with semibold font. -->
+        <TextView
+            android:id="@+id/tv_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="@string/error_try_again"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold" />
+
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
