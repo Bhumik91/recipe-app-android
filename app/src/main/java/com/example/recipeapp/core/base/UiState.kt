@@ -1,6 +1,6 @@
 package com.example.recipeapp.core.base
 
-import com.example.recipeapp.features.recipes.model.FilterOption
+import com.example.recipeapp.data.recipes.options.FilterOption
 
 enum class AuthField {
     UserName,

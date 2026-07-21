@@ -1,6 +1,6 @@
 package com.example.recipeapp.core.network
 
-import com.example.recipeapp.core.session.SessionStorage
+import com.example.recipeapp.storage.session.SessionStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 

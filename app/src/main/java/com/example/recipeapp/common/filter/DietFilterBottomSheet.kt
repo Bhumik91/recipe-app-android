@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import com.example.recipeapp.databinding.BottomSheetDietFilterBinding
 import com.example.recipeapp.databinding.ItemChipBinding
-import com.example.recipeapp.features.recipes.model.DietOptions
+import com.example.recipeapp.data.recipes.options.DietOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 

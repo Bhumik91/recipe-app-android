@@ -1,8 +1,7 @@
 package com.example.recipeapp.core.network
 
-import com.example.recipeapp.core.session.SessionStorage
-import com.example.recipeapp.features.auth.data.AuthApiService
-import com.example.recipeapp.features.auth.model.RefreshTokenRequest
+import com.example.recipeapp.storage.session.SessionStorage
+import com.example.recipeapp.data.auth.RefreshTokenRequest
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
