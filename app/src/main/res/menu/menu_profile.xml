@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Logout option in the Profile screen toolbar -->
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/profile_menu_logout"
+        android:icon="@drawable/ic_logout_outlined"
+        android:iconTint="@color/white"
+        app:showAsAction="always"/>
+</menu>
