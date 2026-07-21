@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.core.base.FilterState
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.core.network.NetworkResult
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.recipes.data.RecipeRepository
 import com.example.recipeapp.features.recipes.model.FilterOption
 import com.example.recipeapp.features.recipes.model.RecipeCardUiModel
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 // already being held correctly.
 class HomeViewModel(
     private val recipeRepository: RecipeRepository,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionStorage
 ) : ViewModel() {
 
     private val _exploreUiState = MutableStateFlow<UiState<List<RecipeCardUiModel>>>(UiState.Idle)

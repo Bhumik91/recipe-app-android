@@ -10,11 +10,11 @@ import kotlinx.serialization.json.Json
  * query text), so returning to the search screen can show real dish cards instead
  * of plain text chips.
  */
-class RecentSearchesManager(context: Context, userId: String) {
+class SharedPrefRecentSearchesStorage(context: Context, userId: String) : RecentSearchesStorage {
 
     private val prefs = context.getSharedPreferences("recent_searches_$userId", Context.MODE_PRIVATE)
 
-    fun getRecentSearches(): List<SearchRecipeUiModel> {
+    override fun getRecentSearches(): List<SearchRecipeUiModel> {
         val raw = prefs.getString(KEY_RECENT_SEARCHES, null) ?: return emptyList()
         return runCatching { json.decodeFromString<List<SearchRecipeUiModel>>(raw) }.getOrDefault(emptyList())
     }
@@ -23,7 +23,7 @@ class RecentSearchesManager(context: Context, userId: String) {
      * Adds/moves the given recipes to the front of the recent list, de-duplicated by id,
      * capped at [MAX_RECENT_SEARCHES].
      */
-    fun addRecentSearches(recipes: List<SearchRecipeUiModel>) {
+    override fun addRecentSearches(recipes: List<SearchRecipeUiModel>) {
         if (recipes.isEmpty()) return
 
         val newIds = recipes.map { it.id }.toSet()
@@ -33,7 +33,7 @@ class RecentSearchesManager(context: Context, userId: String) {
         prefs.edit { putString(KEY_RECENT_SEARCHES, json.encodeToString(trimmed)) }
     }
 
-    fun clear() {
+    override fun clear() {
         prefs.edit { remove(KEY_RECENT_SEARCHES) }
     }
 

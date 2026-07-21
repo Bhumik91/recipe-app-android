@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.core.network.NetworkResult
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.auth.data.AuthRepository
 import com.example.recipeapp.features.auth.model.UserDetailsDto
 import com.example.recipeapp.features.recipes.data.RecipeRepository
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  */
 class ProfileViewModel(
     private val authRepository: AuthRepository,
-    private val sessionManager: SessionManager,
+    private val sessionManager: SessionStorage,
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 

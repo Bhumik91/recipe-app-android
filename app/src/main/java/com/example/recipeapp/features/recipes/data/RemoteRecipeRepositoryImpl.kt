@@ -2,8 +2,8 @@ package com.example.recipeapp.features.recipes.data
 
 import com.example.recipeapp.core.network.ApiErrorHandler
 import com.example.recipeapp.core.network.NetworkResult
-import com.example.recipeapp.core.session.SavedRecipesManager
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SavedRecipesStorage
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.recipes.data.mapper.toUiModel
 import com.example.recipeapp.features.recipes.model.CuisineOptions
 import com.example.recipeapp.features.recipes.model.PaginatedRecipes
@@ -13,8 +13,8 @@ import com.example.recipeapp.features.recipes.model.RecipeDetailUiModel
 
 class RemoteRecipeRepositoryImpl(
     private val api: RecipeApiService,
-    private val savedRecipesManager: SavedRecipesManager,
-    private val sessionManager: SessionManager
+    private val savedRecipesManager: SavedRecipesStorage,
+    private val sessionManager: SessionStorage
 ) : RecipeRepository {
 
     override suspend fun getExploreRecipes(

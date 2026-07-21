@@ -3,10 +3,14 @@ package com.example.recipeapp.core.di
 import com.example.recipeapp.core.network.AuthInterceptor
 import com.example.recipeapp.core.network.RetrofitClient
 import com.example.recipeapp.core.network.TokenAuthenticator
+import com.example.recipeapp.core.session.AndroidAssetJsonLoader
 import com.example.recipeapp.core.session.AssetJsonLoader
-import com.example.recipeapp.core.session.RecentSearchesManager
-import com.example.recipeapp.core.session.SavedRecipesManager
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.RecentSearchesStorage
+import com.example.recipeapp.core.session.SavedRecipesStorage
+import com.example.recipeapp.core.session.SessionStorage
+import com.example.recipeapp.core.session.SharedPrefRecentSearchesStorage
+import com.example.recipeapp.core.session.SharedPrefSavedRecipesStorage
+import com.example.recipeapp.core.session.SharedPrefSessionStorage
 import com.example.recipeapp.features.auth.data.AuthApiService
 import com.example.recipeapp.features.auth.data.AuthRepository
 import com.example.recipeapp.features.auth.data.AuthRepositoryImpl
@@ -36,8 +40,8 @@ private val DUMMY_RECIPE_REPO = named("dummyRecipeRepository")
 val appModule = module {
     // --- Session & Network ---
     
-    // SessionManager dependency (singleton)
-    single { SessionManager(androidContext()) }
+    // SessionStorage dependency (singleton) — backed by SharedPreferences
+    single<SessionStorage> { SharedPrefSessionStorage(androidContext()) }
 
     // Plain AuthApiService (no interceptor/authenticator) — used only by TokenAuthenticator
     // to perform the refresh call itself without re-triggering authentication.
@@ -66,7 +70,7 @@ val appModule = module {
     single { RetrofitClient.spoonacular.create(RecipeApiService::class.java) }
 
     // AssetJsonLoader (singleton) — reads bundled dummy JSON used as a 402-quota fallback
-    single { AssetJsonLoader(androidContext()) }
+    single<AssetJsonLoader> { AndroidAssetJsonLoader(androidContext()) }
 
     // Qualified impls, wrapped by the unqualified FallbackRecipeRepository below — every
     // ViewModel resolves the unqualified RecipeRepository and automatically gets remote-first
@@ -75,11 +79,11 @@ val appModule = module {
     single<RecipeRepository>(REMOTE_RECIPE_REPO) { RemoteRecipeRepositoryImpl(get(), get(), get()) }
     single<RecipeRepository> { FallbackRecipeRepository(get(REMOTE_RECIPE_REPO), get(DUMMY_RECIPE_REPO)) }
 
-    // SavedRecipesManager (singleton, scoped per logged-in user)
-    single { SavedRecipesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
+    // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
+    single<SavedRecipesStorage> { SharedPrefSavedRecipesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }
 
-    // RecentSearchesManager (singleton, scoped per logged-in user)
-    single { RecentSearchesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
+    // RecentSearchesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
+    single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }
 
     // --- ViewModels ---
     viewModel { LoginViewModel(get()) }

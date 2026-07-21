@@ -2,13 +2,13 @@ package com.example.recipeapp.features.auth.data
 
 import com.example.recipeapp.core.network.ApiErrorHandler
 import com.example.recipeapp.core.network.NetworkResult
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.auth.model.LoginRequest
 import com.example.recipeapp.features.auth.model.LoginResponse
 import com.example.recipeapp.features.auth.model.UserDetailsDto
 
 class AuthRepositoryImpl(
-    private val sessionManager: SessionManager,
+    private val sessionManager: SessionStorage,
     private val authApiService: AuthApiService
 ) : AuthRepository {
     override suspend fun login(

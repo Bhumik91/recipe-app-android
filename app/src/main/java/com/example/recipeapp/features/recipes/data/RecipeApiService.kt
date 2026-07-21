@@ -10,7 +10,7 @@ import retrofit2.http.Query
 // Retrofit HTTP interface for Spoonacular API calls only. Local operations
 // (toggleSavedRecipe, removeSavedRecipe, getCuisines, etc.) do NOT belong here —
 // they live in RecipeRepository's concrete implementations, which delegate to
-// SavedRecipesManager (SharedPreferences) and AssetJsonLoader (bundled JSON).
+// SavedRecipesStorage (SharedPreferences) and AssetJsonLoader (bundled JSON).
 // RecipeApiService stays clean and focused: network calls, nothing else.
 interface RecipeApiService {
 

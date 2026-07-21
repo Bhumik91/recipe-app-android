@@ -1,6 +1,6 @@
 package com.example.recipeapp.core.network
 
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.auth.data.AuthApiService
 import com.example.recipeapp.features.auth.model.RefreshTokenRequest
 import kotlinx.coroutines.runBlocking
@@ -15,7 +15,7 @@ import okhttp3.Route
  * call itself.
  */
 class TokenAuthenticator(
-    private val sessionManager: SessionManager,
+    private val sessionManager: SessionStorage,
     private val refreshApiService: AuthApiService
 ) : Authenticator {
 

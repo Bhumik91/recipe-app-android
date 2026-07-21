@@ -2,8 +2,8 @@ package com.example.recipeapp.features.recipes.data
 
 import com.example.recipeapp.core.network.NetworkResult
 import com.example.recipeapp.core.session.AssetJsonLoader
-import com.example.recipeapp.core.session.SavedRecipesManager
-import com.example.recipeapp.core.session.SessionManager
+import com.example.recipeapp.core.session.SavedRecipesStorage
+import com.example.recipeapp.core.session.SessionStorage
 import com.example.recipeapp.features.recipes.data.mapper.toUiModel
 import com.example.recipeapp.features.recipes.model.ComplexSearchResponseDto
 import com.example.recipeapp.features.recipes.model.CuisineOptions
@@ -15,8 +15,8 @@ import kotlinx.serialization.json.Json
 
 class DummyRecipeRepositoryImpl(
     private val assetJsonLoader: AssetJsonLoader,
-    private val savedRecipesManager: SavedRecipesManager,
-    private val sessionManager: SessionManager
+    private val savedRecipesManager: SavedRecipesStorage,
+    private val sessionManager: SessionStorage
 ) : RecipeRepository {
 
     private val json = Json { ignoreUnknownKeys = true }

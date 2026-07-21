@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.core.network.NetworkResult
-import com.example.recipeapp.core.session.RecentSearchesManager
+import com.example.recipeapp.core.session.RecentSearchesStorage
 import com.example.recipeapp.features.recipes.data.RecipeRepository
 import kotlinx.coroutines.FlowPreview
 import com.example.recipeapp.features.search.model.SearchRecipeUiModel
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @OptIn(FlowPreview::class)
 class SearchViewModel(
     private val recipeRepository: RecipeRepository,
-    private val recentSearchesManager: RecentSearchesManager
+    private val recentSearchesManager: RecentSearchesStorage
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")

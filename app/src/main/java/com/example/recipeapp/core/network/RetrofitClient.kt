@@ -27,7 +27,7 @@ object RetrofitClient {
         .build()
 
     // Built per-client so the Bearer token interceptor + auto-refresh authenticator
-    // (which both need SessionManager) can be Koin-injected instead of hardcoded here.
+    // (which both need SessionStorage) can be Koin-injected instead of hardcoded here.
     fun dummyJson(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl("https://dummyjson.com/")
         .client(client)

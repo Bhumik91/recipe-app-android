@@ -5,15 +5,15 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.example.recipeapp.features.auth.model.LoginResponse
 
-class SessionManager(context: Context) {
+class SharedPrefSessionStorage(context: Context) : SessionStorage {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-    var isLoggedIn: Boolean
+    override var isLoggedIn: Boolean
         get() = prefs.getBoolean(KEY_IS_LOGGED_IN, false)
         set(value) = prefs.edit { putBoolean(KEY_IS_LOGGED_IN, value) }
 
-    fun saveAuthSession(response: LoginResponse) {
+    override fun saveAuthSession(response: LoginResponse) {
         prefs.edit().apply {
             putInt(KEY_ID, response.id)
             putString(KEY_NAME, response.name)
@@ -24,20 +24,20 @@ class SessionManager(context: Context) {
         }
     }
 
-    fun getUserId(): Int = prefs.getInt(KEY_ID, 0)
-    fun getUserName(): String = prefs.getString(KEY_NAME, "") ?: ""
+    override fun getUserId(): Int = prefs.getInt(KEY_ID, 0)
+    override fun getUserName(): String = prefs.getString(KEY_NAME, "") ?: ""
 
-    fun getAccessToken(): String? = prefs.getString(KEY_ACCESS_TOKEN, null)
-    fun getRefreshToken(): String? = prefs.getString(KEY_REFRESH_TOKEN, null)
+    override fun getAccessToken(): String? = prefs.getString(KEY_ACCESS_TOKEN, null)
+    override fun getRefreshToken(): String? = prefs.getString(KEY_REFRESH_TOKEN, null)
 
-    fun updateTokens(accessToken: String, refreshToken: String) {
+    override fun updateTokens(accessToken: String, refreshToken: String) {
         prefs.edit {
             putString(KEY_ACCESS_TOKEN, accessToken)
             putString(KEY_REFRESH_TOKEN, refreshToken)
         }
     }
 
-    fun clearSession() {
+    override fun clearSession() {
         prefs.edit { clear() }
     }
 
