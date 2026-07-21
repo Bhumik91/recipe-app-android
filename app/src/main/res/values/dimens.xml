@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General spacing and corner radii -->
     <dimen name="spacing_xs">4dp</dimen>
     <dimen name="spacing_sm">8dp</dimen>
     <dimen name="spacing_md">16dp</dimen>
@@ -8,6 +9,7 @@
     <dimen name="corner_radius">20dp</dimen>
     <dimen name="corner_radius_standard">14dp</dimen>
 
+    <!-- Home Screen dimensions -->
     <dimen name="home_appbar_vertical_padding">20dp</dimen>
     <dimen name="home_search_height">52dp</dimen>
     <dimen name="home_filter_button_size">52dp</dimen>
@@ -26,4 +28,8 @@
     <dimen name="recipe_detail_toolbar_icon_size">40dp</dimen>
     <dimen name="recipe_detail_ingredient_image_size">48dp</dimen>
     <dimen name="recipe_detail_stepper_button_size">32dp</dimen>
+
+    <!-- Profile Screen dimensions -->
+    <dimen name="profile_avatar_size">96dp</dimen>
+    <dimen name="profile_toolbar_icon_size">40dp</dimen>
 </resources>

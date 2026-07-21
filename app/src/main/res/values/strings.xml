@@ -111,4 +111,22 @@
     <string name="search_no_results">No results for \'%1$s\'</string>
     <string name="search_recent_searches_label">Recent searches</string>
     <string name="search_results_count">%1$d results found</string>
+
+    <!-- Profile Fragment -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_menu_content_description">More options</string>
+    <string name="profile_menu_logout">Logout</string>
+    <string name="profile_username">@%1$s</string>
+    <string name="profile_avatar_content_description">Profile avatar</string>
+    <string name="profile_logout_dialog_title">Log out?</string>
+    <string name="profile_logout_dialog_body">You\'ll need to log in again to access your saved recipes and account.</string>
+    <string name="profile_logout_dialog_cancel">Cancel</string>
+    <string name="profile_logout_dialog_confirm">Logout</string>
+    <string name="profile_tab_recipes">Recipes</string>
+    <string name="profile_tab_videos">Videos</string>
+    <string name="profile_tab_tag">Tag</string>
+    <string name="profile_empty_videos_title">No videos yet</string>
+    <string name="profile_empty_videos_body">Videos you upload will show up here.</string>
+    <string name="profile_empty_tag_title">No tags yet</string>
+    <string name="profile_empty_tag_body">Recipes you tag will show up here.</string>
 </resources>

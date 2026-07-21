@@ -14,7 +14,7 @@ object RetrofitClient {
         "ed46c147ed734413b3b10e16a8fa0b93",
         "7355913421ea473d9889c7c50442c78a"
     )
-    private const val SPOONACULAR_API_KEY_INDEX = 3
+    private const val SPOONACULAR_API_KEY_INDEX = 2
 
     private val json = Json { ignoreUnknownKeys = true }
     private val contentType = "application/json".toMediaType()

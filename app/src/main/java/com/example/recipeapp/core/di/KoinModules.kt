@@ -15,6 +15,7 @@ import com.example.recipeapp.features.auth.viewmodel.SignupViewModel
 import com.example.recipeapp.features.dashboard.home.viewmodel.HomeViewModel
 import com.example.recipeapp.features.recipeDetail.viewmodel.RecipeDetailViewModel
 import com.example.recipeapp.features.dashboard.saved.viewmodel.SavedViewModel
+import com.example.recipeapp.features.dashboard.profile.viewmodel.ProfileViewModel
 import com.example.recipeapp.features.recipes.data.DummyRecipeRepositoryImpl
 import com.example.recipeapp.features.recipes.data.FallbackRecipeRepository
 import com.example.recipeapp.features.recipes.data.RecipeApiService
@@ -27,11 +28,14 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+// Qualifiers for differentiating between multiple instances of the same type
 private val REFRESH_API_QUALIFIER = named("refreshAuthApi")
 private val REMOTE_RECIPE_REPO = named("remoteRecipeRepository")
 private val DUMMY_RECIPE_REPO = named("dummyRecipeRepository")
 
 val appModule = module {
+    // --- Session & Network ---
+    
     // SessionManager dependency (singleton)
     single { SessionManager(androidContext()) }
 
@@ -50,6 +54,8 @@ val appModule = module {
             .build()
     }
 
+    // --- APIs & Repositories ---
+
     // AuthApiService dependency (singleton)
     single { RetrofitClient.dummyJson(get()).create(AuthApiService::class.java) }
 
@@ -62,10 +68,12 @@ val appModule = module {
     // AssetJsonLoader (singleton) — reads bundled dummy JSON used as a 402-quota fallback
     single { AssetJsonLoader(androidContext()) }
 
-    // Manual switch: comment/uncomment to pick which impl every ViewModel's RecipeRepository resolves to.
-//    single<RecipeRepository> { DummyRecipeRepositoryImpl(get(), get(), get()) }
-    single<RecipeRepository> { RemoteRecipeRepositoryImpl(get(), get(), get()) }
-//    single<RecipeRepository> { FallbackRecipeRepository(get(REMOTE_RECIPE_REPO), get(DUMMY_RECIPE_REPO)) }
+    // Qualified impls, wrapped by the unqualified FallbackRecipeRepository below — every
+    // ViewModel resolves the unqualified RecipeRepository and automatically gets remote-first
+    // with a dummy-data fallback on quota/network errors.
+    single<RecipeRepository>(DUMMY_RECIPE_REPO) { DummyRecipeRepositoryImpl(get(), get(), get()) }
+    single<RecipeRepository>(REMOTE_RECIPE_REPO) { RemoteRecipeRepositoryImpl(get(), get(), get()) }
+    single<RecipeRepository> { FallbackRecipeRepository(get(REMOTE_RECIPE_REPO), get(DUMMY_RECIPE_REPO)) }
 
     // SavedRecipesManager (singleton, scoped per logged-in user)
     single { SavedRecipesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
@@ -73,11 +81,12 @@ val appModule = module {
     // RecentSearchesManager (singleton, scoped per logged-in user)
     single { RecentSearchesManager(androidContext(), get<SessionManager>().getUserId().toString()) }
 
-    // ViewModels
+    // --- ViewModels ---
     viewModel { LoginViewModel(get()) }
     viewModel { SignupViewModel() }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { RecipeDetailViewModel(get()) }
     viewModel { SavedViewModel(get()) }
     viewModel { SearchViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get(), get(), get()) }
 }
