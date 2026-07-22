@@ -46,13 +46,13 @@ class RemoteRecipeRepositoryImpl(
         return getRecipesByIds(ids)
     }
 
-    override fun toggleSavedRecipe(recipeId: Int) {
-        savedRecipesManager.toggleSaved(recipeId)
+    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) {
+        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl)
     }
 
-    override suspend fun removeSavedRecipe(recipeId: Int): NetworkResult<Unit> =
+    override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> =
         ApiErrorHandler.safeApiCall {
-            savedRecipesManager.removeSaved(recipeId)
+            savedRecipesManager.removeSaved(recipeId, recipeName, recipeImageUrl)
         }
 
     override fun isRecipeSaved(recipeId: Int): Boolean = savedRecipesManager.isSaved(recipeId)

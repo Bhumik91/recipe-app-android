@@ -129,4 +129,14 @@
     <string name="profile_empty_videos_body">Videos you upload will show up here.</string>
     <string name="profile_empty_tag_title">No tags yet</string>
     <string name="profile_empty_tag_body">Recipes you tag will show up here.</string>
+
+    <!-- Notification Fragment -->
+    <string name="notification_title">Notifications</string>
+    <string name="notification_tab_all">All</string>
+    <string name="notification_tab_saved">Saved</string>
+    <string name="notification_tab_removed">Removed</string>
+    <string name="notification_empty_title">No notifications yet</string>
+    <string name="notification_empty_body">Your recipe actions will appear here</string>
+    <string name="added_to_saved">added to Saved Recipes</string>
+    <string name="removed_from_saved">removed from Saved Recipes</string>
 </resources>

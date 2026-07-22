@@ -11,6 +11,18 @@ import com.example.recipeapp.storage.session.SharedPrefSessionStorage
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
+import com.example.recipeapp.core.permissions.PermissionManager
+import com.example.recipeapp.core.permissions.PermissionManagerImpl
+import com.example.recipeapp.core.notifications.RecipeNotifier
+import com.example.recipeapp.core.notifications.SystemRecipeNotifier
+import com.example.recipeapp.core.db.AppDatabase
+import com.example.recipeapp.storage.notificationlog.NotificationLogDao
+import com.example.recipeapp.storage.notificationlog.NotificationLogRepository
+import com.example.recipeapp.storage.notificationlog.RoomNotificationLogRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+
 val storageModule = module {
     // SessionStorage dependency (singleton) — backed by SharedPreferences
     single<SessionStorage> { SharedPrefSessionStorage(androidContext()) }
@@ -18,8 +30,30 @@ val storageModule = module {
     // AssetJsonLoader (singleton) — reads bundled dummy JSON used as a 402-quota fallback
     single<AssetJsonLoader> { AndroidAssetJsonLoader(androidContext()) }
 
+    single<PermissionManager> { PermissionManagerImpl(androidContext()) }
+    single<RecipeNotifier> { SystemRecipeNotifier(androidContext(), get()) }
+
+    // App-lifetime scope for storage-layer work that must outlive a single UI event
+    // (e.g. writing a notification-log row without blocking the caller).
+    single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.IO) }
+
+    // Room (singleton) — backs the persisted save/remove history shown in NotificationFragment
+    single { AppDatabase.build(androidContext()) }
+    single<NotificationLogDao> { get<AppDatabase>().notificationLogDao() }
+    single<NotificationLogRepository> {
+        RoomNotificationLogRepository(get(), get<SessionStorage>().getUserId().toString())
+    }
+
     // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
-    single<SavedRecipesStorage> { SharedPrefSavedRecipesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }
+    single<SavedRecipesStorage> {
+        SharedPrefSavedRecipesStorage(
+            androidContext(),
+            get<SessionStorage>().getUserId().toString(),
+            get<RecipeNotifier>(),
+            get<NotificationLogRepository>(),
+            get<CoroutineScope>()
+        )
+    }
 
     // RecentSearchesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
     single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }

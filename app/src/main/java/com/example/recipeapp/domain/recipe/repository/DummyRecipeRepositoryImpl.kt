@@ -62,12 +62,12 @@ class DummyRecipeRepositoryImpl(
     }
 
 
-    override fun toggleSavedRecipe(recipeId: Int) {
-        savedRecipesManager.toggleSaved(recipeId)
+    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) {
+        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl)
     }
 
-    override suspend fun removeSavedRecipe(recipeId: Int): NetworkResult<Unit> {
-        savedRecipesManager.removeSaved(recipeId)
+    override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> {
+        savedRecipesManager.removeSaved(recipeId, recipeName, recipeImageUrl)
         return NetworkResult.Success(Unit)
     }
 

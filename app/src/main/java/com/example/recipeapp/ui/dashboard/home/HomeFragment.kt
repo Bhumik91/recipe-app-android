@@ -29,6 +29,10 @@ import com.example.recipeapp.common.itemdecor.VerticalSpaceItemDecoration
 import com.example.recipeapp.ui.dashboard.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import com.example.recipeapp.core.permissions.AppPermission
+import com.example.recipeapp.core.permissions.PermissionManager
+import com.example.recipeapp.core.permissions.PermissionRequester
 
 // Home tab: greeting header, search bar entry point, cuisine chip row, saved-recipes
 // carousel, and the paginated explore-recipes list. Filter selection itself is owned by
@@ -39,6 +43,10 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModel()
+
+    // Permission dependencies required for POST_NOTIFICATIONS
+    private val permissionManager: PermissionManager by inject()
+    private val permissionRequester by lazy { PermissionRequester(this) }
 
     // Cuisine chip tap just forwards the tapped label to the ViewModel, which owns the
     // multi-select toggle logic (see HomeViewModel.toggleFilter).
@@ -107,6 +115,21 @@ class HomeFragment : Fragment() {
         setupFilterButton()
         observeUiState()
         viewModel.loadInitial()
+        
+        requestNotificationPermissionIfNeeded()
+    }
+
+    /**
+     * Checks if the Notification permission is granted. If not, it requests it from the user.
+     * This ensures we only prompt when necessary (and respects API 33+ requirement checks internally).
+     */
+    private fun requestNotificationPermissionIfNeeded() {
+        if (!permissionManager.isGranted(AppPermission.NOTIFICATIONS)) {
+            permissionRequester.request(AppPermission.NOTIFICATIONS) { granted ->
+                // Optional: handle permission result (e.g. logging)
+                // Notifications are additive, so we do not block UI if denied.
+            }
+        }
     }
 
     override fun onDestroyView() {
