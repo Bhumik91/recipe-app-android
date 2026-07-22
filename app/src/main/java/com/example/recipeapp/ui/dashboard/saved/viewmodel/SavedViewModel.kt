@@ -88,7 +88,7 @@ class SavedViewModel(
 
         pendingDeleteJob = viewModelScope.launch {
             delay(3000)
-            when (val result = recipeRepository.removeSavedRecipe(recipe.id)) {
+            when (val result = recipeRepository.removeSavedRecipe(recipe.id, recipe.title, recipe.imageUrl)) {
                 is NetworkResult.Error -> restorePendingRecipe(result.message)
                 else -> clearPendingRecipe()
             }

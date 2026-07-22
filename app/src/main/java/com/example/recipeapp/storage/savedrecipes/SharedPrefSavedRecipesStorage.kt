@@ -5,11 +5,16 @@ import androidx.core.content.edit
 
 import com.example.recipeapp.core.notifications.RecipeNotifier
 import com.example.recipeapp.models.recipes.RecipeAction
+import com.example.recipeapp.storage.notificationlog.NotificationLogRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class SharedPrefSavedRecipesStorage(
     context: Context,
     private val userId: String,
-    private val recipeNotifier: RecipeNotifier? = null
+    private val recipeNotifier: RecipeNotifier? = null,
+    private val notificationLogRepository: NotificationLogRepository? = null,
+    private val appScope: CoroutineScope? = null
 ) : SavedRecipesStorage {
 
     private val prefs = context.getSharedPreferences("saved_recipes_$userId", Context.MODE_PRIVATE)
@@ -35,17 +40,27 @@ class SharedPrefSavedRecipesStorage(
         if (wasAdded) current.add(idStr) else current.remove(idStr)
         prefs.edit { putStringSet(KEY_SAVED_IDS, current) }
 
-        // Notify the user via system status bar if permissions allow it
         val action = if (wasAdded) RecipeAction.SAVED else RecipeAction.REMOVED
-        val displayName = recipeName ?: "Recipe #$recipeId"
-        
-        recipeNotifier?.notify(recipeId, displayName, action)
+        notifyAndLog(recipeId, recipeName, recipeImageUrl, action)
     }
 
-    override fun removeSaved(recipeId: Int) {
+    override fun removeSaved(recipeId: Int, recipeName: String?, recipeImageUrl: String?) {
         val current = getSavedIds().map { it.toString() }.toMutableSet()
         current.remove(recipeId.toString())
         prefs.edit { putStringSet(KEY_SAVED_IDS, current) }
+
+        notifyAndLog(recipeId, recipeName, recipeImageUrl, RecipeAction.REMOVED)
+    }
+
+    // Posts the system status-bar notification (if RecipeNotifier is wired and permission
+    // allows it) and persists the action to the notification log, independent of that
+    // permission — the log is an in-app history, not a system-level notification.
+    private fun notifyAndLog(recipeId: Int, recipeName: String?, recipeImageUrl: String?, action: RecipeAction) {
+        val displayName = recipeName ?: "Recipe #$recipeId"
+        recipeNotifier?.notify(recipeId, displayName, action)
+        appScope?.launch {
+            notificationLogRepository?.log(recipeId, displayName, recipeImageUrl.orEmpty(), action)
+        }
     }
 
     companion object {

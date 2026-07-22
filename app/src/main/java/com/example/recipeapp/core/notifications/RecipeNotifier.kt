@@ -39,9 +39,9 @@ class SystemRecipeNotifier(
 
         val title = if (action == RecipeAction.SAVED) "Recipe saved" else "Recipe removed"
         val text = if (action == RecipeAction.SAVED)
-            "$recipeName was added to your saved recipes"
+            "$recipeName added to Saved Recipes."
         else
-            "$recipeName was removed from your saved recipes"
+            "$recipeName removed from Saved Recipes."
 
         val intent = Intent(context, DashboardActivity::class.java).apply {
             putExtra("open_notification_tab", true)

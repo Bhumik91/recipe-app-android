@@ -67,10 +67,11 @@ class FallbackRecipeRepository(
     )
 
     // Local-only operations never touch network — no fallback needed, remote/dummy are equivalent here.
-    override fun toggleSavedRecipe(recipeId: Int) = remote.toggleSavedRecipe(recipeId)
+    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) =
+        remote.toggleSavedRecipe(recipeId, recipeName, recipeImageUrl)
 
-    override suspend fun removeSavedRecipe(recipeId: Int): NetworkResult<Unit> =
-        remote.removeSavedRecipe(recipeId)
+    override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> =
+        remote.removeSavedRecipe(recipeId, recipeName, recipeImageUrl)
 
     override fun isRecipeSaved(recipeId: Int): Boolean = remote.isRecipeSaved(recipeId)
 

@@ -46,7 +46,7 @@ class RecipeDetailViewModel(
         val currentState = _uiState.value
         if (currentState !is UiState.Success) return
 
-        recipeRepository.toggleSavedRecipe(currentState.data.id)
+        recipeRepository.toggleSavedRecipe(currentState.data.id, currentState.data.title, currentState.data.imageUrl)
         _uiState.value = UiState.Success(currentState.data.copy(isSaved = !currentState.data.isSaved))
     }
 

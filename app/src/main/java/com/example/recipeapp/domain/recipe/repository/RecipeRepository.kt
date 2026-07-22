@@ -19,8 +19,8 @@ interface RecipeRepository {
     suspend fun getRecipeDetail(recipeId: Int): NetworkResult<RecipeDetailUiModel>
 
     // --- Local-only operations (SharedPreferences-backed, never hit the network) ---
-    fun toggleSavedRecipe(recipeId: Int)
-    suspend fun removeSavedRecipe(recipeId: Int): NetworkResult<Unit>
+    fun toggleSavedRecipe(recipeId: Int, recipeName: String? = null, recipeImageUrl: String? = null)
+    suspend fun removeSavedRecipe(recipeId: Int, recipeName: String? = null, recipeImageUrl: String? = null): NetworkResult<Unit>
     fun isRecipeSaved(recipeId: Int): Boolean
     fun getCuisines(): List<String>
     fun getUserName(): String

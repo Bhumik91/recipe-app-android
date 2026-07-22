@@ -160,7 +160,8 @@ class HomeViewModel(
     // Optimistically flips the saved flag on the tapped explore-list item so the UI reacts
     // immediately, then reloads the saved-recipes section to reflect the change there too.
     fun onSaveToggled(recipeId: Int) {
-        recipeRepository.toggleSavedRecipe(recipeId)
+        val tapped = exploreItems.firstOrNull { it.id == recipeId }
+        recipeRepository.toggleSavedRecipe(recipeId, tapped?.title, tapped?.imageUrl)
         val updatedIndex = exploreItems.indexOfFirst { it.id == recipeId }
         if (updatedIndex != -1) {
             exploreItems[updatedIndex] = exploreItems[updatedIndex].copy(

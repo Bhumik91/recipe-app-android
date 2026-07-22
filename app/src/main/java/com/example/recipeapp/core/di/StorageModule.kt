@@ -15,6 +15,13 @@ import com.example.recipeapp.core.permissions.PermissionManager
 import com.example.recipeapp.core.permissions.PermissionManagerImpl
 import com.example.recipeapp.core.notifications.RecipeNotifier
 import com.example.recipeapp.core.notifications.SystemRecipeNotifier
+import com.example.recipeapp.core.db.AppDatabase
+import com.example.recipeapp.storage.notificationlog.NotificationLogDao
+import com.example.recipeapp.storage.notificationlog.NotificationLogRepository
+import com.example.recipeapp.storage.notificationlog.RoomNotificationLogRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 val storageModule = module {
     // SessionStorage dependency (singleton) — backed by SharedPreferences
@@ -26,13 +33,26 @@ val storageModule = module {
     single<PermissionManager> { PermissionManagerImpl(androidContext()) }
     single<RecipeNotifier> { SystemRecipeNotifier(androidContext(), get()) }
 
+    // App-lifetime scope for storage-layer work that must outlive a single UI event
+    // (e.g. writing a notification-log row without blocking the caller).
+    single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.IO) }
+
+    // Room (singleton) — backs the persisted save/remove history shown in NotificationFragment
+    single { AppDatabase.build(androidContext()) }
+    single<NotificationLogDao> { get<AppDatabase>().notificationLogDao() }
+    single<NotificationLogRepository> {
+        RoomNotificationLogRepository(get(), get<SessionStorage>().getUserId().toString())
+    }
+
     // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
-    single<SavedRecipesStorage> { 
+    single<SavedRecipesStorage> {
         SharedPrefSavedRecipesStorage(
-            androidContext(), 
+            androidContext(),
             get<SessionStorage>().getUserId().toString(),
-            get<RecipeNotifier>()
-        ) 
+            get<RecipeNotifier>(),
+            get<NotificationLogRepository>(),
+            get<CoroutineScope>()
+        )
     }
 
     // RecentSearchesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
