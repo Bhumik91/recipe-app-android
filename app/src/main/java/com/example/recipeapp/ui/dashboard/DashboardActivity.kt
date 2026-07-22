@@ -1,5 +1,6 @@
 package com.example.recipeapp.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.recipeapp.R
 import androidx.activity.enableEdgeToEdge
@@ -44,6 +45,28 @@ class DashboardActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_nav_host) as androidx.navigation.fragment.NavHostFragment
         val navController = navHostFragment.navController
         androidx.navigation.ui.NavigationUI.setupWithNavController(binding.bnvMain, navController)
+
+        handleIntent(intent)
+    }
+
+    /**
+     * Called when the Activity is already running (e.g., SingleTop) and receives a new Intent,
+     * such as when the user taps on a recipe notification while the app is already open.
+     */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    /**
+     * Inspects incoming Intents for specific flags. Specifically, checks if we should route 
+     * the user to the Notification tab (used by RecipeNotifier).
+     */
+    private fun handleIntent(intent: Intent?) {
+        if (intent?.getBooleanExtra("open_notification_tab", false) == true) {
+            // Selecting this ID tells the BottomNavigationView and NavController to navigate here
+            binding.bnvMain.selectedItemId = R.id.notificationFragment
+        }
     }
 
     // --- Public API: called by hosted fragments' scroll listeners / snackbar flows ---

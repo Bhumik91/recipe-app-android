@@ -41,6 +41,7 @@ java {
 }
 
 dependencies {
+    implementation(libs.androidx.navigation.fragment)
     // Jetpack Navigation Fragment
     implementation(libs.androidx.navigation.fragment.ktx)
     // Jetpack Navigation UI (for ActionBar, BottomNavigationView, Drawers)
