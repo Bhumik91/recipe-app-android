@@ -22,8 +22,8 @@
     <!-- Rating -->
     <color name="rating">#FFAD30</color>
     <!-- Warning / Error -->
-    <color name="warning">#B04000</color>
-    <color name="warning_light">#F99E00</color>
+    <color name="warning">#FD3654</color>
+    <color name="warning_light">#FFE1E7</color>
     <!-- Success -->
     <color name="success">#31B057</color>
 </resources>

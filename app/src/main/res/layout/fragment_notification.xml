@@ -1,23 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCFFCC"
-    android:clipToPadding="false"
-    android:paddingBottom="@dimen/home_content_bottom_padding">
+    android:background="@color/white">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="1000dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        app:liftOnScrollColor="@color/white"
+        app:elevation="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_notification"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetEnd="@dimen/spacing_md"
+            app:contentInsetEndWithActions="@dimen/spacing_md"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/notification_title"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearance"
+            app:titleTextColor="@color/black" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/home_content_bottom_padding"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notification Fragment"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            android:paddingTop="@dimen/spacing_lg">
+
+            <!-- Tab Layout for filtering -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_notification_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_lg"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabGravity="fill"
+                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorColor="@android:color/transparent"
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/RecipeDetailTabText"
+                app:tabTextColor="@color/gray_3"
+                app:tabBackground="@drawable/bg_recipe_detail_tab_indicator"
+                app:tabRippleColor="@android:color/transparent">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_tab_all" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_tab_saved" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_tab_removed" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <!-- Notification Logs RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_notification_logs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tab_notification_filter"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_notification_log" />
+
+            <!-- Empty State Layout -->
+            <LinearLayout
+                android:id="@+id/layout_notification_empty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:layout_marginHorizontal="@dimen/spacing_lg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tab_notification_filter"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_notification_outlined"
+                    android:tint="@color/gray_4" />
+
+                <TextView
+                    android:id="@+id/tv_notification_empty_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:textColor="@color/gray_1"
+                    android:textSize="16sp"
+                    android:text="@string/notification_empty_title" />
+
+                <TextView
+                    android:id="@+id/tv_notification_empty_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    android:text="@string/notification_empty_body" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Loading Progress Bar -->
+    <ProgressBar
+        android:id="@+id/pb_notification_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

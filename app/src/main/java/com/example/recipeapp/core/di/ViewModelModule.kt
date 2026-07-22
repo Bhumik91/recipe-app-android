@@ -3,6 +3,7 @@ package com.example.recipeapp.core.di
 import com.example.recipeapp.ui.auth.viewmodel.LoginViewModel
 import com.example.recipeapp.ui.auth.viewmodel.SignupViewModel
 import com.example.recipeapp.ui.dashboard.home.viewmodel.HomeViewModel
+import com.example.recipeapp.ui.dashboard.notification.viewmodel.NotificationViewModel
 import com.example.recipeapp.ui.dashboard.profile.viewmodel.ProfileViewModel
 import com.example.recipeapp.ui.dashboard.saved.viewmodel.SavedViewModel
 import com.example.recipeapp.ui.recipeDetail.viewmodel.RecipeDetailViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModel { SavedViewModel(get()) }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { ProfileViewModel(get(), get(), get()) }
+    viewModel { NotificationViewModel(get()) }
 }
