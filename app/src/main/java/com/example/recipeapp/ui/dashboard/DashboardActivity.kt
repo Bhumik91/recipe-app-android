@@ -2,6 +2,7 @@ package com.example.recipeapp.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.recipeapp.R
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +40,7 @@ class DashboardActivity : AppCompatActivity() {
                 binding.babMain.visibility = android.view.View.VISIBLE
                 binding.fabAdd.show()
             }
-            insets
+            WindowInsetsCompat.CONSUMED
         }
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_nav_host) as androidx.navigation.fragment.NavHostFragment
