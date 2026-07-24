@@ -1,39 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Shared chip row used for both cuisine chips (Home, via ChipsAdapter/RecyclerView) and
-  diet chips (DietFilterBottomSheet, inflated directly into a ChipGroup). Every instance
-  reuses the same android:id below, which is fine for the RecyclerView case (each holder is
-  independent) but means this id can never be used to look up an individual chip once
-  several are added to one ViewGroup — see DietFilterBottomSheet.checkedDiets() for how
-  selection is read back without relying on findViewById.
-
-  KNOWN ISSUE: unchecked chips still render with an unwanted green-ish tint at rest on
-  device, not yet fixed. Approaches tried so far, none conclusive:
-    1. Pointed chip_background_selector/chip_stroke_selector/chip_text_color_selector at
-       @color/primary + @color/white directly instead of ?attr/colorPrimary /
-       ?attr/colorOnPrimary, in case a Material3 theme-attribute default was leaking
-       through — selector colors confirmed correct in the compiled APK, tint persisted.
-    2. Ruled out colorPrimaryContainer/theme-attribute fallback by temporarily overriding
-       colorPrimaryContainer to an unrelated color (orange) in themes.xml — no visible
-       change, so the tint isn't coming from that attribute.
-    3. Set android:elevation="0dp" + app:chipSurfaceColor="@color/white", suspecting
-       Material3's elevation-based surface-tint overlay (colorSurfaceTint, defaults to
-       colorPrimary) — tint persisted.
-    4. Set app:elevation="0dp" (Chip's own MaterialShapeDrawable-level elevation attribute,
-       distinct from android:elevation) + app:rippleColor to transparent, to rule out the
-       ripple layer and Chip-internal elevation separately — tint persisted.
-    5. Diagnostic: swapped chip_background_selector's unchecked color to an unmistakable
-       magenta and rebuilt/reinstalled — screenshot showed a translucent green/teal wash
-       still compositing on top of the magenta (rendered as muddy purple), confirming our
-       chipBackgroundColor selector IS applied correctly, but something else layers an
-       overlay on top of it at rest, independent of the background color chosen.
-  Next things worth trying: explicit app:style referencing a concrete Chip style resource
-  (e.g. Widget.Material3.Chip.Assist) instead of the implicit default; inspecting the
-  Material Components library's default chip style/attrs directly; checking for a
-  stateListAnimator or background-drawable layer set elsewhere (theme overlay, parent
-  ChipGroup, or Material's elevationOverlayColor) that composites regardless of Chip-level
-  attributes.
--->
 <com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,13 +7,13 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/home_chip_height"
     android:checkable="true"
-    android:fontFamily="@font/poppins_medium"
+    android:fontFamily="@font/poppins_regular"
     android:textColor="@color/chip_text_color_selector"
     android:textSize="14sp"
     android:elevation="0dp"
     app:checkedIconVisible="false"
     app:chipBackgroundColor="@color/chip_background_selector"
-    app:chipCornerRadius="@dimen/corner_radius"
+    app:chipCornerRadius="10dp"
     app:chipEndPadding="@dimen/spacing_md"
     app:chipMinHeight="@dimen/home_chip_height"
     app:chipStartPadding="@dimen/spacing_md"
@@ -57,4 +22,4 @@
     app:chipSurfaceColor="@color/white"
     app:elevation="0dp"
     app:ensureMinTouchTargetSize="false"
-    app:rippleColor="@color/primary_40" />
+    app:rippleColor="@android:color/transparent" />
