@@ -42,21 +42,24 @@ val storageModule = module {
     single { AppDatabase.build(androidContext()) }
     single<NotificationLogDao> { get<AppDatabase>().notificationLogDao() }
     single<NotificationLogRepository> {
-        RoomNotificationLogRepository(get(), get<SessionStorage>().getUserId().toString())
+        RoomNotificationLogRepository(get(), get<SessionStorage>())
     }
 
-    // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by Room
+    // SavedRecipesStorage (singleton) — backed by Room, reads the current userId from
+    // SessionStorage per call so it stays correct across a logout/login switch (see
+    // RoomSavedRecipesStorage's kdoc for why a fixed userId here would leak between users)
     single<SavedRecipeDao> { get<AppDatabase>().savedRecipeDao() }
     single<SavedRecipesStorage> {
         RoomSavedRecipesStorage(
             get<SavedRecipeDao>(),
-            get<SessionStorage>().getUserId().toString(),
+            get<SessionStorage>(),
             get<RecipeNotifier>(),
             get<NotificationLogRepository>(),
             get<CoroutineScope>()
         )
     }
 
-    // RecentSearchesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
-    single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }
+    // RecentSearchesStorage (singleton) — backed by SharedPreferences, reads the current
+    // userId from SessionStorage per call so it stays correct across a logout/login switch
+    single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>()) }
 }

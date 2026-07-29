@@ -4,6 +4,7 @@ import com.example.recipeapp.core.notifications.RecipeNotifier
 import com.example.recipeapp.data.recipes.uimodel.RecipeCardUiModel
 import com.example.recipeapp.models.recipes.RecipeAction
 import com.example.recipeapp.storage.notificationlog.NotificationLogRepository
+import com.example.recipeapp.storage.session.SessionStorage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,13 +18,19 @@ private fun SavedRecipeEntity.toUiModel() = RecipeCardUiModel(
     isSaved = true
 )
 
+// Reads the userId from SessionStorage on every call rather than capturing it once at
+// construction — this storage is a Koin singleton that outlives any single logged-in
+// session, so a userId baked into the constructor would still point at the previous
+// user's id after a logout/login switch within the same process.
 class RoomSavedRecipesStorage(
     private val dao: SavedRecipeDao,
-    private val userId: String,
+    private val sessionStorage: SessionStorage,
     private val recipeNotifier: RecipeNotifier? = null,
     private val notificationLogRepository: NotificationLogRepository? = null,
     private val appScope: CoroutineScope? = null
 ) : SavedRecipesStorage {
+
+    private val userId: String get() = sessionStorage.getUserId().toString()
 
     override suspend fun isSaved(recipeId: Int): Boolean = dao.isSaved(recipeId, userId)
 
