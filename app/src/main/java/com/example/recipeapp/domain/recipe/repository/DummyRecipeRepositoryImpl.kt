@@ -11,6 +11,7 @@ import com.example.recipeapp.data.recipes.uimodel.PaginatedRecipes
 import com.example.recipeapp.data.recipes.uimodel.RecipeCardUiModel
 import com.example.recipeapp.data.recipes.dto.RecipeDetailDto
 import com.example.recipeapp.data.recipes.uimodel.RecipeDetailUiModel
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 
 class DummyRecipeRepositoryImpl(
@@ -55,15 +56,11 @@ class DummyRecipeRepositoryImpl(
         return NetworkResult.Success(results)
     }
 
-    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> {
-        val ids = savedRecipesManager.getSavedIds().toList()
-        if (ids.isEmpty()) return NetworkResult.Success(emptyList())
-        return getRecipesByIds(ids)
-    }
+    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> =
+        NetworkResult.Success(savedRecipesManager.observeSavedRecipes().first())
 
-
-    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) {
-        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl)
+    override suspend fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?, readyInMinutes: Int?) {
+        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl, readyInMinutes)
     }
 
     override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> {
@@ -71,7 +68,7 @@ class DummyRecipeRepositoryImpl(
         return NetworkResult.Success(Unit)
     }
 
-    override fun isRecipeSaved(recipeId: Int): Boolean = savedRecipesManager.isSaved(recipeId)
+    override suspend fun isRecipeSaved(recipeId: Int): Boolean = savedRecipesManager.isSaved(recipeId)
 
     override fun getCuisines(): List<String> = CuisineOptions.cuisines
 

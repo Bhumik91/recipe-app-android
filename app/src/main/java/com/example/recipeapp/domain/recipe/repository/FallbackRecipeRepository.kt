@@ -49,10 +49,9 @@ class FallbackRecipeRepository(
         dummyCall = { dummy.getRecipesByIds(ids) }
     )
 
-    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> = withFallback(
-        remoteCall = { remote.getSavedRecipes() },
-        dummyCall = { dummy.getSavedRecipes() }
-    )
+    // Room-backed (both remote/dummy delegate to the same SavedRecipesStorage instance),
+    // so this never fails with a network error — no 402 fallback needed here.
+    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> = remote.getSavedRecipes()
 
     override suspend fun searchRecipes(
         query: String,
@@ -68,13 +67,13 @@ class FallbackRecipeRepository(
     )
 
     // Local-only operations never touch network — no fallback needed, remote/dummy are equivalent here.
-    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) =
-        remote.toggleSavedRecipe(recipeId, recipeName, recipeImageUrl)
+    override suspend fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?, readyInMinutes: Int?) =
+        remote.toggleSavedRecipe(recipeId, recipeName, recipeImageUrl, readyInMinutes)
 
     override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> =
         remote.removeSavedRecipe(recipeId, recipeName, recipeImageUrl)
 
-    override fun isRecipeSaved(recipeId: Int): Boolean = remote.isRecipeSaved(recipeId)
+    override suspend fun isRecipeSaved(recipeId: Int): Boolean = remote.isRecipeSaved(recipeId)
 
     override fun getCuisines(): List<String> = remote.getCuisines()
 

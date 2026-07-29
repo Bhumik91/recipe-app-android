@@ -18,10 +18,10 @@ interface RecipeRepository {
     suspend fun searchRecipes(query: String, diet: String?): NetworkResult<List<RecipeCardUiModel>>
     suspend fun getRecipeDetail(recipeId: Int): NetworkResult<RecipeDetailUiModel>
 
-    // --- Local-only operations (SharedPreferences-backed, never hit the network) ---
-    fun toggleSavedRecipe(recipeId: Int, recipeName: String? = null, recipeImageUrl: String? = null)
+    // --- Local-only operations (Room-backed, never hit the network) ---
+    suspend fun toggleSavedRecipe(recipeId: Int, recipeName: String? = null, recipeImageUrl: String? = null, readyInMinutes: Int? = null)
     suspend fun removeSavedRecipe(recipeId: Int, recipeName: String? = null, recipeImageUrl: String? = null): NetworkResult<Unit>
-    fun isRecipeSaved(recipeId: Int): Boolean
+    suspend fun isRecipeSaved(recipeId: Int): Boolean
     fun getCuisines(): List<String>
     fun getUserName(): String
 }

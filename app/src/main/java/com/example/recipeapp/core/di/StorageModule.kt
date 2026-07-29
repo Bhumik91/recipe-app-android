@@ -4,8 +4,9 @@ import com.example.recipeapp.storage.assets.AndroidAssetJsonLoader
 import com.example.recipeapp.storage.assets.AssetJsonLoader
 import com.example.recipeapp.storage.recentsearches.RecentSearchesStorage
 import com.example.recipeapp.storage.recentsearches.SharedPrefRecentSearchesStorage
+import com.example.recipeapp.storage.savedrecipes.SavedRecipeDao
 import com.example.recipeapp.storage.savedrecipes.SavedRecipesStorage
-import com.example.recipeapp.storage.savedrecipes.SharedPrefSavedRecipesStorage
+import com.example.recipeapp.storage.savedrecipes.RoomSavedRecipesStorage
 import com.example.recipeapp.storage.session.SessionStorage
 import com.example.recipeapp.storage.session.KeystoreSessionStorage
 import org.koin.android.ext.koin.androidContext
@@ -44,10 +45,11 @@ val storageModule = module {
         RoomNotificationLogRepository(get(), get<SessionStorage>().getUserId().toString())
     }
 
-    // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
+    // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by Room
+    single<SavedRecipeDao> { get<AppDatabase>().savedRecipeDao() }
     single<SavedRecipesStorage> {
-        SharedPrefSavedRecipesStorage(
-            androidContext(),
+        RoomSavedRecipesStorage(
+            get<SavedRecipeDao>(),
             get<SessionStorage>().getUserId().toString(),
             get<RecipeNotifier>(),
             get<NotificationLogRepository>(),
