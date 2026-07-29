@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.BottomSheetDietFilterBinding
 import com.example.recipeapp.databinding.ItemChipBinding
 import com.example.recipeapp.data.recipes.options.DietOptions
@@ -38,6 +39,7 @@ class DietFilterBottomSheet : BottomSheetDialogFragment() {
         configureOnClicks()
     }
 
+    override fun getTheme(): Int = R.style.Theme_RecipeApp
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
