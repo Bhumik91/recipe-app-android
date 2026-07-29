@@ -7,7 +7,7 @@ import com.example.recipeapp.storage.recentsearches.SharedPrefRecentSearchesStor
 import com.example.recipeapp.storage.savedrecipes.SavedRecipesStorage
 import com.example.recipeapp.storage.savedrecipes.SharedPrefSavedRecipesStorage
 import com.example.recipeapp.storage.session.SessionStorage
-import com.example.recipeapp.storage.session.SharedPrefSessionStorage
+import com.example.recipeapp.storage.session.KeystoreSessionStorage
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -24,8 +24,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
 val storageModule = module {
-    // SessionStorage dependency (singleton) — backed by SharedPreferences
-    single<SessionStorage> { SharedPrefSessionStorage(androidContext()) }
+    // SessionStorage dependency (singleton) — backed by EncryptedSharedPreferences (Android Keystore)
+    single<SessionStorage> { KeystoreSessionStorage(androidContext()) }
 
     // AssetJsonLoader (singleton) — reads bundled dummy JSON used as a 402-quota fallback
     single<AssetJsonLoader> { AndroidAssetJsonLoader(androidContext()) }
