@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.common.filter.DietFilterBottomSheet
-import com.example.recipeapp.common.toast.DummyDataToast
 import com.example.recipeapp.core.base.UiState
 import com.example.recipeapp.databinding.FragmentHomeBinding
-import com.example.recipeapp.domain.recipe.repository.DummyDataSignal
 import com.example.recipeapp.ui.dashboard.DashboardActivity
 import com.example.recipeapp.ui.dashboard.home.adapter.ChipsAdapter
 import com.example.recipeapp.ui.dashboard.home.adapter.ExploreHeaderAdapter
@@ -127,7 +125,7 @@ class HomeFragment : Fragment() {
      */
     private fun requestNotificationPermissionIfNeeded() {
         if (!permissionManager.isGranted(AppPermission.NOTIFICATIONS)) {
-            permissionRequester.request(AppPermission.NOTIFICATIONS) { granted ->
+            permissionRequester.request(AppPermission.NOTIFICATIONS) { _ ->
                 // Optional: handle permission result (e.g. logging)
                 // Notifications are additive, so we do not block UI if denied.
             }
@@ -182,8 +180,23 @@ class HomeFragment : Fragment() {
                     viewModel.savedUiState.collect { state ->
                         when (state) {
                             is UiState.Success -> {
+                                val hadItemsBefore = savedSectionAdapter.itemCount > 0
                                 savedRecipesAdapter.submitList(state.data)
                                 savedSectionAdapter.setHasItems(state.data.isNotEmpty())
+
+                                // Inserting at position 0 doesn't bring itself into view —
+                                // LinearLayoutManager keeps whatever's already on screen
+                                // anchored in place, so a newly-appearing saved section is
+                                // pushed off-screen above the viewport until the user
+                                // scrolls up manually. Scroll to it ourselves, but only when
+                                // the user is already near the top — otherwise this would
+                                // yank the list away from wherever they're currently reading.
+                                if (!hadItemsBefore && state.data.isNotEmpty()) {
+                                    val layoutManager = binding.rvHome.layoutManager as? LinearLayoutManager
+                                    if ((layoutManager?.findFirstVisibleItemPosition() ?: 0) <= 1) {
+                                        binding.rvHome.scrollToPosition(0)
+                                    }
+                                }
                             }
                             else -> Unit
                         }
@@ -263,7 +276,10 @@ class HomeFragment : Fragment() {
                 addItemDecoration(
                     VerticalSpaceItemDecoration(
                         itemSpacing = exploreSpacing,
-                        startPosition = 2
+                        // Explore items start right after the saved section (0 or 1 items
+                        // depending on whether anything's saved) + the header (always 1) —
+                        // read live so spacing stays correct when the saved section toggles.
+                        startPosition = { savedSectionAdapter.itemCount + exploreHeaderAdapter.itemCount }
                     )
                 )
             }

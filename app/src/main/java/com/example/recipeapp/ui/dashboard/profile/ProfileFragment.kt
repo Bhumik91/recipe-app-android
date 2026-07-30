@@ -93,6 +93,14 @@ class ProfileFragment : Fragment() {
         binding.scrollProfile.setOnScrollChangeListener(scrollListener)
     }
 
+    // Reloads on every appearance (not just the first) — the Fragment's view is recreated
+    // on each bottom-nav tab switch, but the ViewModel survives, so re-fetching here is
+    // what keeps the saved-recipes list current after it changes on another tab.
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadSavedRecipes()
+    }
+
     override fun onDestroyView() {
         binding.scrollProfile.setOnScrollChangeListener(null as NestedScrollView.OnScrollChangeListener?)
         binding.tabProfileSections.removeOnTabSelectedListener(tabSelectedListener)
