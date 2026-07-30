@@ -31,7 +31,6 @@ class ProfileViewModel(
 
     init {
         loadProfile()
-        loadSavedRecipes()
     }
 
     /**

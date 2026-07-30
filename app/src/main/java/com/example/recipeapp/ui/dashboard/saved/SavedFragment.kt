@@ -134,18 +134,32 @@ class SavedFragment : Fragment() {
                             binding.rvSaved.visibility = View.INVISIBLE
                             binding.pbSavedLoading.visibility = View.VISIBLE
                             binding.errorStateContainer.visibility = View.GONE
+                            binding.emptyStateView.visibility = View.GONE
                         }
                         is UiState.Success -> {
-                            // submitList() auto-diffs and animates only the changed rows
-                            // (via SavedAdapter's ListAdapter + DIFF_CALLBACK).
-                            savedAdapter.submitList(state.data)
                             binding.pbSavedLoading.visibility = View.GONE
-                            binding.rvSaved.visibility = View.VISIBLE
                             binding.errorStateContainer.visibility = View.GONE
+                            if (state.data.isEmpty()) {
+                                binding.rvSaved.visibility = View.GONE
+                                binding.emptyStateView.visibility = View.VISIBLE
+                                binding.emptyStateView.setup(
+                                    message = "${getString(R.string.empty_saved_recipes_title)}\n${getString(R.string.empty_saved_recipes_body)}",
+                                    actionText = getString(R.string.action_explore_recipes),
+                                    actionColor = requireContext().getColor(R.color.primary),
+                                    onAction = { (activity as? DashboardActivity)?.navigateToHome() }
+                                )
+                            } else {
+                                // submitList() auto-diffs and animates only the changed rows
+                                // (via SavedAdapter's ListAdapter + DIFF_CALLBACK).
+                                savedAdapter.submitList(state.data)
+                                binding.rvSaved.visibility = View.VISIBLE
+                                binding.emptyStateView.visibility = View.GONE
+                            }
                         }
                         is UiState.Error -> {
                             binding.pbSavedLoading.visibility = View.GONE
                             binding.rvSaved.visibility = View.GONE
+                            binding.emptyStateView.visibility = View.GONE
                             binding.errorStateContainer.visibility = View.VISIBLE
                         }
                         else -> Unit

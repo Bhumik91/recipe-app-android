@@ -93,6 +93,14 @@ class ProfileFragment : Fragment() {
         binding.scrollProfile.setOnScrollChangeListener(scrollListener)
     }
 
+    // Reloads on every appearance (not just the first) — the Fragment's view is recreated
+    // on each bottom-nav tab switch, but the ViewModel survives, so re-fetching here is
+    // what keeps the saved-recipes list current after it changes on another tab.
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadSavedRecipes()
+    }
+
     override fun onDestroyView() {
         binding.scrollProfile.setOnScrollChangeListener(null as NestedScrollView.OnScrollChangeListener?)
         binding.tabProfileSections.removeOnTabSelectedListener(tabSelectedListener)
@@ -231,9 +239,18 @@ class ProfileFragment : Fragment() {
     private fun renderRecipesTab(state: UiState<List<RecipeCardUiModel>>) {
         when (state) {
             is UiState.Success -> {
-                recipesAdapter.submitList(state.data)
-                binding.rvProfileRecipes.visibility = View.VISIBLE
-                binding.layoutProfileTabEmpty.visibility = View.GONE
+                if (state.data.isEmpty()) {
+                    showEmptyState(
+                        R.string.empty_saved_recipes_title,
+                        getString(R.string.empty_saved_recipes_body),
+                        actionText = getString(R.string.action_explore_recipes),
+                        onAction = { (activity as? DashboardActivity)?.navigateToHome() }
+                    )
+                } else {
+                    recipesAdapter.submitList(state.data)
+                    binding.rvProfileRecipes.visibility = View.VISIBLE
+                    binding.layoutProfileTabEmpty.visibility = View.GONE
+                }
             }
             is UiState.Error -> showEmptyState(R.string.error_something_went_wrong, state.message)
             else -> {
@@ -243,10 +260,28 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun showEmptyState(@StringRes titleRes: Int, body: String) {
+    private fun showEmptyState(
+        @StringRes titleRes: Int,
+        body: String,
+        actionText: String? = null,
+        onAction: (() -> Unit)? = null
+    ) {
         binding.rvProfileRecipes.visibility = View.GONE
         binding.layoutProfileTabEmpty.visibility = View.VISIBLE
         binding.tvProfileTabEmptyTitle.setText(titleRes)
         binding.tvProfileTabEmptyBody.text = body
+
+        if (actionText != null && onAction != null) {
+            binding.tvProfileTabEmptyAction.apply {
+                visibility = View.VISIBLE
+                text = actionText
+                setOnClickListener { onAction() }
+            }
+        } else {
+            binding.tvProfileTabEmptyAction.apply {
+                visibility = View.GONE
+                setOnClickListener(null)
+            }
+        }
     }
 }
