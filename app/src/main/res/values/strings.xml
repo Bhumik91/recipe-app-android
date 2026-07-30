@@ -130,6 +130,9 @@
     <string name="profile_empty_videos_body">Videos you upload will show up here.</string>
     <string name="profile_empty_tag_title">No tags yet</string>
     <string name="profile_empty_tag_body">Recipes you tag will show up here.</string>
+    <string name="empty_saved_recipes_title">No Saved Recipes</string>
+    <string name="empty_saved_recipes_body">Please explore recipes to save your favorites.</string>
+    <string name="action_explore_recipes">Explore Recipes</string>
 
     <!-- Notification Fragment -->
     <string name="notification_title">Notifications</string>

@@ -72,6 +72,11 @@ class DashboardActivity : AppCompatActivity() {
 
     // --- Public API: called by hosted fragments' scroll listeners / snackbar flows ---
 
+    // Called by SavedFragment/ProfileFragment's "Explore Recipes" empty-state action.
+    fun navigateToHome() {
+        binding.bnvMain.selectedItemId = R.id.homeFragment
+    }
+
     fun updateBottomBarForScroll(scrollingDown: Boolean) {
         if (scrollingDown) hideBottomBar() else showBottomBar()
     }

@@ -202,6 +202,20 @@
                     android:textSize="14sp"
                     tools:text="@string/profile_empty_videos_body" />
 
+                <!-- Optional clickable action (e.g. "Explore Recipes") — hidden unless
+                     showEmptyState() is called with a non-null actionText + onAction. -->
+                <TextView
+                    android:id="@+id/tv_profile_tab_empty_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:text="@string/action_explore_recipes"
+                    tools:visibility="visible" />
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

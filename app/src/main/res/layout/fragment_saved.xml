@@ -85,4 +85,13 @@
 
     </LinearLayout>
 
+    <!-- Empty state (UiState.Success with an empty list): "No Saved Recipes" message
+         plus an "Explore Recipes" action that jumps back to the Home tab. -->
+    <com.example.recipeapp.common.error.ErrorStateView
+        android:id="@+id/empty_state_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
