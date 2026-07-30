@@ -162,14 +162,16 @@ class HomeViewModel(
     // immediately, then reloads the saved-recipes section to reflect the change there too.
     fun onSaveToggled(recipeId: Int) {
         val tapped = exploreItems.firstOrNull { it.id == recipeId }
-        recipeRepository.toggleSavedRecipe(recipeId, tapped?.title, tapped?.imageUrl)
-        val updatedIndex = exploreItems.indexOfFirst { it.id == recipeId }
-        if (updatedIndex != -1) {
-            exploreItems[updatedIndex] = exploreItems[updatedIndex].copy(
-                isSaved = !exploreItems[updatedIndex].isSaved
-            )
-            _exploreUiState.value = UiState.Success(exploreItems.toList())
+        viewModelScope.launch {
+            recipeRepository.toggleSavedRecipe(recipeId, tapped?.title, tapped?.imageUrl, tapped?.readyInMinutes)
+            val updatedIndex = exploreItems.indexOfFirst { it.id == recipeId }
+            if (updatedIndex != -1) {
+                exploreItems[updatedIndex] = exploreItems[updatedIndex].copy(
+                    isSaved = !exploreItems[updatedIndex].isSaved
+                )
+                _exploreUiState.value = UiState.Success(exploreItems.toList())
+            }
+            loadSavedRecipes()
         }
-        loadSavedRecipes()
     }
 }

@@ -4,10 +4,11 @@ import com.example.recipeapp.storage.assets.AndroidAssetJsonLoader
 import com.example.recipeapp.storage.assets.AssetJsonLoader
 import com.example.recipeapp.storage.recentsearches.RecentSearchesStorage
 import com.example.recipeapp.storage.recentsearches.SharedPrefRecentSearchesStorage
+import com.example.recipeapp.storage.savedrecipes.SavedRecipeDao
 import com.example.recipeapp.storage.savedrecipes.SavedRecipesStorage
-import com.example.recipeapp.storage.savedrecipes.SharedPrefSavedRecipesStorage
+import com.example.recipeapp.storage.savedrecipes.RoomSavedRecipesStorage
 import com.example.recipeapp.storage.session.SessionStorage
-import com.example.recipeapp.storage.session.SharedPrefSessionStorage
+import com.example.recipeapp.storage.session.KeystoreSessionStorage
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -24,8 +25,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
 val storageModule = module {
-    // SessionStorage dependency (singleton) — backed by SharedPreferences
-    single<SessionStorage> { SharedPrefSessionStorage(androidContext()) }
+    // SessionStorage dependency (singleton) — backed by EncryptedSharedPreferences (Android Keystore)
+    single<SessionStorage> { KeystoreSessionStorage(androidContext()) }
 
     // AssetJsonLoader (singleton) — reads bundled dummy JSON used as a 402-quota fallback
     single<AssetJsonLoader> { AndroidAssetJsonLoader(androidContext()) }
@@ -41,20 +42,24 @@ val storageModule = module {
     single { AppDatabase.build(androidContext()) }
     single<NotificationLogDao> { get<AppDatabase>().notificationLogDao() }
     single<NotificationLogRepository> {
-        RoomNotificationLogRepository(get(), get<SessionStorage>().getUserId().toString())
+        RoomNotificationLogRepository(get(), get<SessionStorage>())
     }
 
-    // SavedRecipesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
+    // SavedRecipesStorage (singleton) — backed by Room, reads the current userId from
+    // SessionStorage per call so it stays correct across a logout/login switch (see
+    // RoomSavedRecipesStorage's kdoc for why a fixed userId here would leak between users)
+    single<SavedRecipeDao> { get<AppDatabase>().savedRecipeDao() }
     single<SavedRecipesStorage> {
-        SharedPrefSavedRecipesStorage(
-            androidContext(),
-            get<SessionStorage>().getUserId().toString(),
+        RoomSavedRecipesStorage(
+            get<SavedRecipeDao>(),
+            get<SessionStorage>(),
             get<RecipeNotifier>(),
             get<NotificationLogRepository>(),
             get<CoroutineScope>()
         )
     }
 
-    // RecentSearchesStorage (singleton, scoped per logged-in user) — backed by SharedPreferences
-    single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>().getUserId().toString()) }
+    // RecentSearchesStorage (singleton) — backed by SharedPreferences, reads the current
+    // userId from SessionStorage per call so it stays correct across a logout/login switch
+    single<RecentSearchesStorage> { SharedPrefRecentSearchesStorage(androidContext(), get<SessionStorage>()) }
 }

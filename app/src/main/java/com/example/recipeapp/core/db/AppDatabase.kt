@@ -8,16 +8,19 @@ import androidx.room.TypeConverters
 import com.example.recipeapp.storage.notificationlog.NotificationLogDao
 import com.example.recipeapp.storage.notificationlog.NotificationLogEntity
 import com.example.recipeapp.storage.notificationlog.RecipeActionConverter
+import com.example.recipeapp.storage.savedrecipes.SavedRecipeDao
+import com.example.recipeapp.storage.savedrecipes.SavedRecipeEntity
 
 @Database(
-    entities = [NotificationLogEntity::class],
-    version = 1,
+    entities = [NotificationLogEntity::class, SavedRecipeEntity::class],
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(RecipeActionConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun notificationLogDao(): NotificationLogDao
+    abstract fun savedRecipeDao(): SavedRecipeDao
 
     companion object {
         fun build(context: Context): AppDatabase =

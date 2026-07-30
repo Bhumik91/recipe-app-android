@@ -10,6 +10,7 @@ import com.example.recipeapp.data.recipes.options.CuisineOptions
 import com.example.recipeapp.data.recipes.uimodel.PaginatedRecipes
 import com.example.recipeapp.data.recipes.uimodel.RecipeCardUiModel
 import com.example.recipeapp.data.recipes.uimodel.RecipeDetailUiModel
+import kotlinx.coroutines.flow.first
 
 
 class RemoteRecipeRepositoryImpl(
@@ -40,14 +41,13 @@ class RemoteRecipeRepositoryImpl(
             api.getRecipesByIds(ids.joinToString(",")).map { it.toUiModel(isSaved = true) }
         }
 
-    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> {
-        val ids = savedRecipesManager.getSavedIds().toList()
-        if (ids.isEmpty()) return NetworkResult.Success(emptyList())
-        return getRecipesByIds(ids)
-    }
+    // Room-backed: recipe details were persisted locally when saved, so this never
+    // needs the network — the Saved tab works offline.
+    override suspend fun getSavedRecipes(): NetworkResult<List<RecipeCardUiModel>> =
+        NetworkResult.Success(savedRecipesManager.observeSavedRecipes().first())
 
-    override fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?) {
-        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl)
+    override suspend fun toggleSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?, readyInMinutes: Int?) {
+        savedRecipesManager.toggleSaved(recipeId, recipeName, recipeImageUrl, readyInMinutes)
     }
 
     override suspend fun removeSavedRecipe(recipeId: Int, recipeName: String?, recipeImageUrl: String?): NetworkResult<Unit> =
@@ -55,7 +55,7 @@ class RemoteRecipeRepositoryImpl(
             savedRecipesManager.removeSaved(recipeId, recipeName, recipeImageUrl)
         }
 
-    override fun isRecipeSaved(recipeId: Int): Boolean = savedRecipesManager.isSaved(recipeId)
+    override suspend fun isRecipeSaved(recipeId: Int): Boolean = savedRecipesManager.isSaved(recipeId)
 
     override fun getCuisines(): List<String> = CuisineOptions.cuisines
 

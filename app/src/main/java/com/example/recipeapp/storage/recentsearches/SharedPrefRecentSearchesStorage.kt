@@ -1,18 +1,29 @@
 package com.example.recipeapp.storage.recentsearches
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.example.recipeapp.data.recipes.uimodel.SearchRecipeUiModel
+import com.example.recipeapp.storage.session.SessionStorage
 import kotlinx.serialization.json.Json
 
 /**
  * Persists the actual recipes the user has previously searched (not just the raw
  * query text), so returning to the search screen can show real dish cards instead
  * of plain text chips.
+ *
+ * Resolves the userId-suffixed prefs file from SessionStorage on every access rather than
+ * once at construction — this storage is a Koin singleton that outlives any single logged-in
+ * session, so a userId baked into the constructor would still point at the previous user's
+ * file after a logout/login switch within the same process.
  */
-class SharedPrefRecentSearchesStorage(context: Context, userId: String) : RecentSearchesStorage {
+class SharedPrefRecentSearchesStorage(
+    private val context: Context,
+    private val sessionStorage: SessionStorage
+) : RecentSearchesStorage {
 
-    private val prefs = context.getSharedPreferences("recent_searches_$userId", Context.MODE_PRIVATE)
+    private val prefs: SharedPreferences
+        get() = context.getSharedPreferences("recent_searches_${sessionStorage.getUserId()}", Context.MODE_PRIVATE)
 
     override fun getRecentSearches(): List<SearchRecipeUiModel> {
         val raw = prefs.getString(KEY_RECENT_SEARCHES, null) ?: return emptyList()
