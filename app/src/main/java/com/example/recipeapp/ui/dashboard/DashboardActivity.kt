@@ -3,6 +3,7 @@ package com.example.recipeapp.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.recipeapp.R
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,10 @@ class DashboardActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_nav_host) as androidx.navigation.fragment.NavHostFragment
         val navController = navHostFragment.navController
         androidx.navigation.ui.NavigationUI.setupWithNavController(binding.bnvMain, navController)
+
+        binding.fabAdd.setOnClickListener {
+            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
+        }
 
         handleIntent(intent)
     }
