@@ -1,9 +1,28 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     id("androidx.navigation.safeargs.kotlin")
 }
+
+// Secrets live in local.properties (gitignored, never committed) so the key
+// isn't readable by anyone browsing the public repo. Each dev sets their own
+// SPOONACULAR_API_KEY there; CI would supply it as an env var instead.
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { load(it) }
+    }
+}
+
+fun secret(name: String): String =
+    (localProperties.getProperty(name) ?: System.getenv(name) ?: "").also {
+        if (it.isEmpty()) {
+            logger.warn("Warning: $name is not set in local.properties or the environment; Spoonacular calls will fail.")
+        }
+    }
 
 android {
     namespace = "com.example.recipeapp"
@@ -15,6 +34,8 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "SPOONACULAR_API_KEY", "\"${secret("SPOONACULAR_API_KEY")}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,6 +53,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
