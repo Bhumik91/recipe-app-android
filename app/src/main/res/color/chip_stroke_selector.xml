@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chip outline: no stroke when checked (fill alone communicates selection), light gray
+     otherwise. Same theme-attribute leak fix as chip_background_selector.xml. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@android:color/transparent" android:state_checked="true" />
+    <item android:color="@color/primary" />
+</selector>

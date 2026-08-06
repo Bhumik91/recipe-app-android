@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.search.SearchActivity">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:background="@drawable/bg_icon_circle"
+        android:contentDescription="@string/recipe_detail_back_content_description"
+        android:padding="@dimen/spacing_sm"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fl_search_box"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_search_height"
+        android:layout_marginStart="@dimen/spacing_md"
+        android:layout_marginEnd="@dimen/spacing_md"
+        android:background="@drawable/bg_search_surface"
+        app:layout_constraintEnd_toStartOf="@id/btn_filter"
+        app:layout_constraintStart_toEndOf="@id/btn_back"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_search_outlined"
+            app:tint="@color/gray_3" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/home_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_3"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/btn_filter"
+        android:layout_width="@dimen/home_filter_button_size"
+        android:layout_height="@dimen/home_filter_button_size"
+        android:layout_marginEnd="@dimen/spacing_lg"
+        android:background="@drawable/bg_filter_button_disabled"
+        android:contentDescription="@string/home_filter_content_description"
+        android:enabled="false"
+        android:padding="@dimen/spacing_md"
+        android:src="@drawable/ic_filter"
+        app:layout_constraintBottom_toBottomOf="@id/fl_search_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fl_search_box" />
+
+    <!-- Small badge dot anchored to btn_filter's top-end corner, toggled from
+         SearchViewModel.selectedDiets so the user can tell at a glance whether a
+         diet filter is currently applied — mirrors HomeFragment's filter dot. -->
+    <View
+        android:id="@+id/view_filter_active_dot"
+        android:layout_width="@dimen/filter_active_dot_size"
+        android:layout_height="@dimen/filter_active_dot_size"
+        android:background="@drawable/bg_filter_active_dot"
+        android:contentDescription="@string/home_filter_active_content_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/btn_filter"
+        app:layout_constraintTop_toTopOf="@id/btn_filter"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_recent_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:layout_marginEnd="@dimen/spacing_lg"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/search_recent_searches_label"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_search_box"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recent_searches"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/spacing_lg"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recent_label"
+        tools:listitem="@layout/item_search"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_results_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:layout_marginEnd="@dimen/spacing_lg"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_search_box"
+        tools:text="12 results found"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/spacing_lg"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_results_count"
+        tools:listitem="@layout/item_search"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_no_results"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_lg"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:textColor="@color/gray_2"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_search_box"
+        android:layout_marginTop="@dimen/spacing_xl"
+        tools:text="No results for 'pasta'" />
+
+    <ProgressBar
+        android:id="@+id/pb_search_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_search_box" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

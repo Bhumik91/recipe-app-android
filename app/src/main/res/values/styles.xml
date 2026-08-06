@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name = "TextStyleSubtitleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name = "TextStyleSubtitleLarge">
+        <item name="android:textSize">50sp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name = "TextStyleBodyRegular">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="CircleImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="SavedCardImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_radius</item>
+    </style>
+
+    <style name="RecipeDetailTabText" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

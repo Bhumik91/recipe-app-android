@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_lg"
+    android:paddingTop="@dimen/spacing_md"
+    android:paddingBottom="@dimen/spacing_lg">
+
+    <View
+        android:id="@+id/view_drag_handle"
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_drag_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sheet_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="@string/filter_sheet_title"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_drag_handle" />
+
+    <TextView
+        android:id="@+id/tv_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/poppins_medium"
+        android:padding="@dimen/spacing_xs"
+        android:text="@string/filter_sheet_clear"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sheet_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_sheet_title" />
+
+    <TextView
+        android:id="@+id/tv_diet_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/filter_sheet_diet_label"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sheet_title" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_diet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_sm"
+        app:chipSpacingHorizontal="@dimen/spacing_sm"
+        app:chipSpacingVertical="@dimen/spacing_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_diet_label"
+        app:singleSelection="false"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_apply_filter"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/filter_sheet_apply"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group_diet" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

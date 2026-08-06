@@ -1,3 +1,146 @@
 <resources>
     <string name="app_name">Recipe App</string>
+
+    <!-- OnBoarding Activity -->
+    <string name="onboarding_bg_desc">background</string>
+    <string name="onboarding_ic_desc">icon</string>
+    <string name="onboarding_subtitle_txt">100K+ Premium Recipe</string>
+    <string name="onboarding_title_txt">Get\nCooking</string>
+    <string name="onboarding_body_txt">Simple way to find Tasty Recipe</string>
+    <string name="onboarding_start_btn">Start Cooking</string>
+
+    <!-- Login Activity -->
+    <string name="login_hello">Hello,</string>
+    <string name="login_welcome">Welcome Back</string>
+    <string name="login_user_name_label">User Name</string>
+    <string name="login_user_name_hint">Enter User Name</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_password_hint">Enter Password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_btn">Log In</string>
+    <string name="login_or_text">Or Sign In With</string>
+    <string name="login_dont_have_account">Don\'t have an account? </string>
+    <string name="login_signup">Sign Up</string>
+    <string name="login_google_desc">Sign with Google</string>
+    <string name="login_facebook_desc">Sign with Facebook</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_create_account">Create Account</string>
+    <string name="signup_subtitle">Let’s help you set up your account,\nit won’t take long.</string>
+    <string name="signup_name_label">Name</string>
+    <string name="signup_name_hint">Enter Name</string>
+    <string name="signup_email_label">Email</string>
+    <string name="signup_email_hint">Enter Email</string>
+    <string name="signup_password_label">Password</string>
+    <string name="signup_password_hint">Enter Password</string>
+    <string name="signup_confirm_password_label">Confirm Password</string>
+    <string name="signup_confirm_password_hint">Retype Password</string>
+    <string name="signup_accept_terms">Accept terms &amp; Condition</string>
+    <string name="signup_btn">Sign Up</string>
+    <string name="signup_already_member">Already a member? </string>
+    <string name="signup_login">Log In</string>
+
+    <!-- Bottom Navigation -->
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_saved">Saved</string>
+    <string name="bottom_nav_notification">Notification</string>
+    <string name="bottom_nav_profile">Profile</string>
+
+    <!--  Dashboard Activity  -->
+    <string name="dash_board_add_desc">Add</string>
+
+    <!-- Home Fragment -->
+    <string name="home_greeting_title">Hello %1$s</string>
+    <string name="home_greeting_subtitle">What are you cooking today?</string>
+    <string name="home_search_hint">Search recipe</string>
+    <string name="home_search_content_description">Search recipes</string>
+    <string name="home_filter_content_description">Filter recipes</string>
+    <string name="home_filter_active_content_description">Filters applied</string>
+    <string name="home_saved_section_title">Saved Recipes</string>
+    <string name="home_explore_section_title">Explore Recipes</string>
+    <string name="home_ready_time_label">Time</string>
+    <string name="home_ready_minutes">%1$d mins</string>
+    <string name="home_recipe_image_description">%1$s recipe image</string>
+    <string name="home_saved_recipe_content_description">%1$s is saved</string>
+    <string name="home_toggle_saved_content_description">Toggle saved recipe for %1$s</string>
+
+    <!-- Saved Screen -->
+    <string name="saved_recipe_removed_message">Recipe removed</string>
+    <string name="saved_recipe_undo_action">Undo</string>
+    <string name="saved_recipe_remove_error">Couldn\'t update saved recipes. Please try again.</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
+    <string name="error_try_again">Try Again</string>
+    <string name="dummy_data_showing_message">Dummy data is showing</string>
+
+    <!-- Diet Filter Bottom Sheet (shared: Home + Search) -->
+    <string name="filter_sheet_title">Filter Search</string>
+    <string name="filter_sheet_clear">Clear</string>
+    <string name="filter_sheet_diet_label">Diet</string>
+    <string name="filter_sheet_apply">Filter</string>
+
+    <!-- Recipe Detail Activity -->
+    <string name="recipe_detail_back_content_description">Back</string>
+    <string name="recipe_detail_more_content_description">More options</string>
+    <string name="recipe_detail_image_content_description">%1$s recipe image</string>
+    <string name="recipe_detail_save_indicator_description">Recipe saved indicator</string>
+    <string name="recipe_detail_attribution">By %1$s</string>
+    <string name="recipe_detail_ready_minutes">%1$d mins</string>
+    <string name="recipe_detail_servings_label">Servings</string>
+    <string name="recipe_detail_decrease_servings_description">Decrease servings</string>
+    <string name="recipe_detail_increase_servings_description">Increase servings</string>
+    <string name="recipe_detail_tab_ingredients">Ingredients</string>
+    <string name="recipe_detail_tab_procedure">Procedure</string>
+    <string name="recipe_detail_no_instructions_title">No instructions yet</string>
+    <string name="recipe_detail_no_instructions_body">This recipe doesn\'t have step-by-step instructions available.</string>
+    <string name="recipe_detail_step_number">Step %1$d</string>
+    <string name="recipe_detail_ingredients_count">%1$d ingredients</string>
+    <string name="recipe_detail_steps_count">%1$d steps</string>
+    <string name="recipe_detail_required_ingredients">Required ingredients: %1$s</string>
+    <string name="recipe_detail_menu_share">Share</string>
+    <string name="recipe_detail_menu_save">Save recipe</string>
+    <string name="recipe_detail_menu_unsave">Remove from saved</string>
+
+    <!-- Recipe Link Dialog -->
+    <string name="recipe_detail_link_dialog_title">Recipe Link</string>
+    <string name="recipe_detail_link_dialog_subtitle">Copy recipe link and share your recipe link with friends and family.</string>
+    <string name="recipe_detail_copy_link">Copy Link</string>
+    <string name="recipe_detail_link_copied">Link is copied</string>
+    <string name="recipe_detail_close_content_description">Close</string>
+
+
+    <!-- Search Screen -->
+    <string name="search_no_results">No results for \'%1$s\'</string>
+    <string name="search_recent_searches_label">Recent searches</string>
+    <string name="search_results_count">%1$d results found</string>
+
+    <!-- Profile Fragment -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_menu_content_description">More options</string>
+    <string name="profile_menu_logout">Logout</string>
+    <string name="profile_username">@%1$s</string>
+    <string name="profile_avatar_content_description">Profile avatar</string>
+    <string name="profile_logout_dialog_title">Log out?</string>
+    <string name="profile_logout_dialog_body">You\'ll need to log in again to access your saved recipes and account.</string>
+    <string name="profile_logout_dialog_cancel">Cancel</string>
+    <string name="profile_logout_dialog_confirm">Logout</string>
+    <string name="profile_tab_recipes">Recipes</string>
+    <string name="profile_tab_videos">Videos</string>
+    <string name="profile_tab_tag">Tag</string>
+    <string name="profile_empty_videos_title">No videos yet</string>
+    <string name="profile_empty_videos_body">Videos you upload will show up here.</string>
+    <string name="profile_empty_tag_title">No tags yet</string>
+    <string name="profile_empty_tag_body">Recipes you tag will show up here.</string>
+    <string name="empty_saved_recipes_title">No Saved Recipes</string>
+    <string name="empty_saved_recipes_body">Please explore recipes to save your favorites.</string>
+    <string name="action_explore_recipes">Explore Recipes</string>
+
+    <!-- Notification Fragment -->
+    <string name="notification_title">Notifications</string>
+    <string name="notification_tab_all">All</string>
+    <string name="notification_tab_saved">Saved</string>
+    <string name="notification_tab_removed">Removed</string>
+    <string name="notification_empty_title">No notifications yet</string>
+    <string name="notification_empty_body">Your recipe actions will appear here</string>
+    <string name="added_to_saved">added to Saved Recipes</string>
+    <string name="removed_from_saved">removed from Saved Recipes</string>
 </resources>

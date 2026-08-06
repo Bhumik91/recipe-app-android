@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_explore_header"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_lg"
+    android:layout_marginBottom="@dimen/spacing_md"
+    android:fontFamily="@font/poppins_semibold"
+    android:text="@string/home_explore_section_title"
+    android:textColor="@color/black"
+    android:textSize="24sp" />

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:liftOnScrollColor="@color/white"
+        android:elevation="0dp"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/rv_home">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_lg"
+            android:paddingTop="@dimen/home_appbar_vertical_padding"
+            android:paddingEnd="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_md"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <TextView
+                android:id="@+id/tv_greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                tools:text="Hello Bhumik"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/home_greeting_subtitle"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
+
+            <include
+                android:id="@+id/sv_search"
+                layout="@layout/view_search_bar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/home_search_height"
+                android:layout_marginTop="@dimen/spacing_lg"
+                app:layout_constraintEnd_toStartOf="@id/btn_filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+
+            <ImageButton
+                android:id="@+id/btn_filter"
+                android:layout_width="@dimen/home_filter_button_size"
+                android:layout_height="@dimen/home_filter_button_size"
+                android:layout_marginStart="@dimen/spacing_md"
+                android:background="@drawable/bg_filter_button"
+                android:contentDescription="@string/home_filter_content_description"
+                android:padding="@dimen/spacing_md"
+                android:src="@drawable/ic_filter"
+                app:layout_constraintBottom_toBottomOf="@id/sv_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/sv_search"
+                app:layout_constraintTop_toTopOf="@id/sv_search" />
+
+            <!-- Small badge dot anchored to btn_filter's top-end corner; HomeFragment toggles
+                 its visibility from FilterState.isFilterActive so the user can tell at a
+                 glance whether any cuisine/diet filter is currently applied. -->
+            <View
+                android:id="@+id/view_filter_active_dot"
+                android:layout_width="@dimen/filter_active_dot_size"
+                android:layout_height="@dimen/filter_active_dot_size"
+                android:background="@drawable/bg_filter_active_dot"
+                android:contentDescription="@string/home_filter_active_content_description"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/btn_filter"
+                app:layout_constraintTop_toTopOf="@id/btn_filter"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sv_search" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/spacing_lg"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/home_content_bottom_padding"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <com.example.recipeapp.common.error.ErrorStateView
+        android:id="@+id/error_state_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Natural -->
+    <color name="black">#000000</color>
+    <color name="gray_1">#484848</color>
+    <color name="gray_2">#797979</color>
+    <color name="gray_3">#A9A9A9</color>
+    <color name="gray_4">#D9D9D9</color>
+    <color name="white">#FFFFFF</color>
+    <!-- Primary -->
+    <color name="primary">#129575</color>
+    <color name="primary_80">#71B1A1</color>
+    <color name="primary_60">#AFD3CA</color>
+    <color name="primary_40">#DBEBE7</color>
+    <color name="primary_20">#F6FAF9</color>
+    <!-- Secondary -->
+    <color name="secondary">#FF9C00</color>
+    <color name="secondary_80">#FFA61A</color>
+    <color name="secondary_60">#FFBA4D</color>
+    <color name="secondary_40">#FFCE80</color>
+    <color name="secondary_20">#FFE1B3</color>
+    <!-- Rating -->
+    <color name="rating">#FFAD30</color>
+    <!-- Warning / Error -->
+    <color name="warning">#FD3654</color>
+    <color name="warning_light">#FFE1E7</color>
+    <!-- Success -->
+    <color name="success">#31B057</color>
 </resources>
